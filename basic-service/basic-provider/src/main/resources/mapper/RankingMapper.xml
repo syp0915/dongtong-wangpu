@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.basic.dao.RankingMapper">
+  <resultMap id="rankingResultMap" type="com.dongtong.basic.dto.RankingInfoDTO">
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="maxtime" jdbcType="VARCHAR" property="maxtime" />
+    <result column="real_name" jdbcType="VARCHAR" property="name" />
+    <result column="id" jdbcType="VARCHAR" property="userId" />
+    <result column="rownumber" jdbcType="VARCHAR" property="rowNumber" />
+  </resultMap>
+  <select id="getCostomerByInviCode" resultMap="rankingResultMap">
+    select (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(
+    SELECT l.id,l.invitation_code,COUNT(c.id) AS quantity,MAX(c.create_time) maxtime,l.create_time,
+    l.real_name FROM clerk l
+    LEFT JOIN (SELECT * FROM customer cc WHERE cc.status =0 and cc.create_time BETWEEN #{startDate} and #{endDate}) c
+    ON c.invitation_code = l.invitation_code
+     GROUP BY l.invitation_code ORDER BY quantity DESC,maxtime ASC,l.create_time ASC) AS content
+  </select>
+  <select id="getClerkHistoryBestRankingByWeek" resultType="java.lang.Integer">
+    select min(ranking) from clerk_history_week_ranking where customer_id = #{userid} and classify = #{classify}
+  </select>
+  <select id="getClerkHistoryBestRankingByMonth" resultType="java.lang.Integer">
+    select IFNULL(min(ranking),0) from clerk_history_month_ranking where customer_id = #{userid} and classify = #{classify}
+  </select>
+  <select id="getClerkShop" resultType="java.util.HashMap">
+     select (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(
+    SELECT COUNT(s.id) AS quantity,l.id,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM shop WHERE create_time BETWEEN #{startDate} and #{endDate} ) s
+    ON l.id = s.clerk_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+  <select id="getClerkHitToShop" resultType="java.util.HashMap">
+    select (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(
+    SELECT COUNT(h.id) AS quantity,l.id,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM clerk_hint  WHERE status = 4 and create_time BETWEEN #{startDate} and #{endDate} and id in
+    (SELECT hint_id FROM shop)) h
+    ON l.id = h.owner_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+  <select id="getClerkHit" resultType="java.util.HashMap">
+    select (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(
+    SELECT COUNT(h.id) AS quantity,l.id,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM clerk_hint  WHERE status in(2,4) and create_time BETWEEN #{startDate} and #{endDate}) h
+    ON l.id = h.expand_clerk_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+  <select id="getClerkVisitShop" resultType="java.util.HashMap">
+    select (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(
+    SELECT COUNT(s.id) AS quantity,l.id,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM customer_visit_shop WHERE create_time BETWEEN #{startDate} and #{endDate} and status = 1) s
+    ON l.id = s.clerk_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+  <select id="getClerkSign" resultType="java.util.HashMap">
+    select (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(
+    SELECT COUNT(s.id) AS quantity,l.id,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM customer_sign WHERE create_time BETWEEN #{startDate} and #{endDate} and status = 2 ) s
+    ON l.id = s.clerk_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+  <resultMap id="rankingPageResultMap" type="com.dongtong.basic.dto.RankingDTO">
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPicture" />
+    <result column="real_name" jdbcType="VARCHAR" property="name" />
+    <result column="rownumber" jdbcType="VARCHAR" property="ranking" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+  </resultMap>
+  <select id="getClerkShopToPage" resultMap="rankingPageResultMap" parameterType="com.dongtong.basic.query.RankingPageQuery">
+    SELECT (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(select COUNT(s.id) AS quantity,l.id,l.head_portrait,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM shop WHERE is_delete = 0 and create_time BETWEEN #{query.startDate,jdbcType=VARCHAR} and #{query.endDate,jdbcType=VARCHAR} ) s
+    ON l.id = s.clerk_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+
+  <select id="getClerkVisitShopToPage" resultMap="rankingPageResultMap" parameterType="com.dongtong.basic.query.RankingPageQuery">
+    SELECT (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(select COUNT(s.id) AS quantity,l.id,l.head_portrait,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM customer_visit_shop WHERE create_time BETWEEN #{query.startDate,jdbcType=VARCHAR} and #{query.endDate,jdbcType=VARCHAR} and status = 1) s
+    ON l.id = s.clerk_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+
+  <select id="getClerkHitToShopPage" resultMap="rankingPageResultMap" parameterType="com.dongtong.basic.query.RankingPageQuery">
+    SELECT (@i:=@i+1) AS rownumber,content.* FROM (SELECT @i:=0) AS it,(SELECT COUNT(s.id) AS quantity,l.id,l.head_portrait,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM clerk_hint WHERE create_time BETWEEN #{query.startDate,jdbcType=VARCHAR}
+     and #{query.endDate,jdbcType=VARCHAR} and status = 4
+     AND id IN (SELECT hint_id FROM shop) ) s
+    ON l.id = s.owner_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+
+  <select id="getClerkHitPage" resultMap="rankingPageResultMap" parameterType="com.dongtong.basic.query.RankingPageQuery">
+    SELECT (@i:=@i+1) AS rownumber,content.* FROM (SELECT @i:=0) AS it,(SELECT COUNT(s.id) AS quantity,l.id,l.head_portrait,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM clerk_hint WHERE create_time BETWEEN #{query.startDate,jdbcType=VARCHAR}
+    and #{query.endDate,jdbcType=VARCHAR} and status in (2,4) ) s
+    ON l.id = s.expand_clerk_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+
+  <select id="getClerkSignToPage" resultMap="rankingPageResultMap" parameterType="com.dongtong.basic.query.RankingPageQuery">
+    SELECT (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(select COUNT(s.id) AS quantity,l.id,l.head_portrait,l.create_time,l.real_name FROM
+    clerk l LEFT JOIN (SELECT * FROM customer_sign WHERE create_time BETWEEN #{query.startDate,jdbcType=VARCHAR} and #{query.endDate,jdbcType=VARCHAR} and status = 2  ) s
+    ON l.id = s.clerk_id GROUP BY l.id ORDER BY quantity DESC,create_time ASC)  AS content
+  </select>
+
+  <select id="getClerkCustomerToPage" resultMap="rankingPageResultMap" parameterType="com.dongtong.basic.query.RankingPageQuery">
+    SELECT (@i:=@i+1) AS rownumber,content.* from (SELECT @i:=0) AS it,(select l.head_portrait,l.id,l.real_name,l.invitation_code,COUNT(c.id) AS quantity,MAX(c.create_time) maxtime
+     FROM clerk l
+    LEFT JOIN (SELECT * FROM customer cc WHERE status =0 and cc.create_time BETWEEN #{query.startDate,jdbcType=VARCHAR} and #{query.endDate,jdbcType=VARCHAR}) c
+    ON c.invitation_code = l.invitation_code
+     GROUP BY l.invitation_code ORDER BY quantity DESC,maxtime ASC,l.create_time ASC)  AS content
+  </select>
+
+  <resultMap id="clerkResultMap" type="com.dongtong.basic.dto.ClerkDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="role_type" jdbcType="TINYINT" property="roleType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <select id="getClerkInfoById" parameterType="java.lang.Long" resultMap="clerkResultMap">
+    select
+    id, phone, real_name, head_portrait, invitation_code, role_type, status, creater,
+    create_time, modifier, modify_time, version
+    from clerk
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+</mapper>

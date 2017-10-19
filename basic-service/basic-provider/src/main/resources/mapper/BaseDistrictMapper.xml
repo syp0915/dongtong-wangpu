@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.basic.dao.BaseDistrictMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.basic.domain.BaseDistrict">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="cityId" jdbcType="VARCHAR" property="cityid" />
+    <result column="lon_lat" jdbcType="VARCHAR" property="lonLat" />
+    <result column="baidu_lon" jdbcType="VARCHAR" property="baiduLon" />
+    <result column="baidu_lat" jdbcType="VARCHAR" property="baiduLat" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="abbreviation" jdbcType="VARCHAR" property="abbreviation" />
+    <result column="full_name" jdbcType="VARCHAR" property="fullName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, district_name, cityId, lon_lat, baidu_lon, baidu_lat, creater, create_time, modifier, 
+    modify_time, version, abbreviation, full_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_district
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_district
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.basic.domain.BaseDistrict" useGeneratedKeys="true">
+    insert into base_district (id, district_name, cityId, 
+      lon_lat, baidu_lon, baidu_lat, 
+      creater, create_time, modifier, 
+      modify_time, version, abbreviation, 
+      full_name)
+    values (#{id,jdbcType=BIGINT}, #{districtName,jdbcType=VARCHAR}, #{cityid,jdbcType=VARCHAR}, 
+      #{lonLat,jdbcType=VARCHAR}, #{baiduLon,jdbcType=VARCHAR}, #{baiduLat,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0, #{abbreviation,jdbcType=VARCHAR}, 
+      #{fullName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.basic.domain.BaseDistrict" useGeneratedKeys="true">
+    insert into base_district
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+      <if test="cityid != null">
+        cityId,
+      </if>
+      <if test="lonLat != null">
+        lon_lat,
+      </if>
+      <if test="baiduLon != null">
+        baidu_lon,
+      </if>
+      <if test="baiduLat != null">
+        baidu_lat,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="abbreviation != null">
+        abbreviation,
+      </if>
+      <if test="fullName != null">
+        full_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=VARCHAR},
+      </if>
+      <if test="lonLat != null">
+        #{lonLat,jdbcType=VARCHAR},
+      </if>
+      <if test="baiduLon != null">
+        #{baiduLon,jdbcType=VARCHAR},
+      </if>
+      <if test="baiduLat != null">
+        #{baiduLat,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="abbreviation != null">
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null">
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.basic.domain.BaseDistrict">
+    update base_district
+    <set>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null">
+        cityId = #{cityid,jdbcType=VARCHAR},
+      </if>
+      <if test="lonLat != null">
+        lon_lat = #{lonLat,jdbcType=VARCHAR},
+      </if>
+      <if test="baiduLon != null">
+        baidu_lon = #{baiduLon,jdbcType=VARCHAR},
+      </if>
+      <if test="baiduLat != null">
+        baidu_lat = #{baiduLat,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="abbreviation != null">
+        abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null">
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.basic.domain.BaseDistrict">
+    update base_district
+    set district_name = #{districtName,jdbcType=VARCHAR},
+      cityId = #{cityid,jdbcType=VARCHAR},
+      lon_lat = #{lonLat,jdbcType=VARCHAR},
+      baidu_lon = #{baiduLon,jdbcType=VARCHAR},
+      baidu_lat = #{baiduLat,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1,
+      abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByCityId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--
+   开发负责人：wuky
+   功能说明：根据cityId获取数据库记录
+   是否有缓存：无
+   -->
+    select
+    <include refid="Base_Column_List" />
+    from base_district
+    where cityId = #{cityId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

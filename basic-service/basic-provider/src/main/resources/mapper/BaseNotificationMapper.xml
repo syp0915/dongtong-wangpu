@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.basic.dao.BaseNotificationMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.basic.domain.BaseNotification">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="receiver_id" jdbcType="BIGINT" property="receiverId" />
+    <result column="receiver_type" jdbcType="TINYINT" property="receiverType" />
+    <result column="notify_type" jdbcType="TINYINT" property="notifyType" />
+    <result column="biz_id" jdbcType="BIGINT" property="bizId" />
+    <result column="service_type" jdbcType="TINYINT" property="serviceType" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, receiver_id, receiver_type, notify_type, biz_id,service_type, digest, content, status, creater,
+    create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_notification
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_notification
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.basic.domain.BaseNotification" useGeneratedKeys="true">
+    insert into base_notification (id, receiver_id, receiver_type, 
+      notify_type, biz_id, service_type,digest,
+      content, status, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{receiverId,jdbcType=BIGINT}, #{receiverType,jdbcType=TINYINT}, 
+      #{notifyType,jdbcType=TINYINT}, #{bizId,jdbcType=BIGINT},#{serviceType,jdbcType=TINYINT}, #{digest,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.basic.domain.BaseNotification" useGeneratedKeys="true">
+    insert into base_notification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="receiverId != null">
+        receiver_id,
+      </if>
+      <if test="receiverType != null">
+        receiver_type,
+      </if>
+      <if test="notifyType != null">
+        notify_type,
+      </if>
+      <if test="bizId != null">
+        biz_id,
+      </if>
+      <if test="serviceType != null">
+        service_type,
+      </if>
+      <if test="digest != null">
+        digest,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="receiverId != null">
+        #{receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverType != null">
+        #{receiverType,jdbcType=TINYINT},
+      </if>
+      <if test="notifyType != null">
+        #{notifyType,jdbcType=TINYINT},
+      </if>
+      <if test="bizId != null">
+        #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceType != null">
+        #{serviceType,jdbcType=TINYINT},
+      </if>
+      <if test="digest != null">
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.basic.domain.BaseNotification">
+    update base_notification
+    <set>
+      <if test="receiverId != null">
+        receiver_id = #{receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverType != null">
+        receiver_type = #{receiverType,jdbcType=TINYINT},
+      </if>
+      <if test="notifyType != null">
+        notify_type = #{notifyType,jdbcType=TINYINT},
+      </if>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceType != null">
+        service_type = #{serviceType,jdbcType=TINYINT},
+      </if>
+      <if test="digest != null">
+        digest = #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.basic.domain.BaseNotification">
+    update base_notification
+    set receiver_id = #{receiverId,jdbcType=BIGINT},
+      receiver_type = #{receiverType,jdbcType=TINYINT},
+      notify_type = #{notifyType,jdbcType=TINYINT},
+      biz_id = #{bizId,jdbcType=BIGINT},
+      digest = #{digest,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1,
+	  service_type = #{serviceType,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectUnReadByReceiver" parameterType="com.dongtong.basic.dto.req.BaseNoticeReqDTO" resultType="int">
+    select count(*)
+    from base_notification
+    where receiver_id = #{receiveId,jdbcType=BIGINT} and receiver_type = #{receiveType,jdbcType=TINYINT}
+     and status = 1 and IF(receiver_type=0,notify_type in (0,1,2),notify_type in (3,4))
+  </select>
+
+  <update id="updateStatusByType" parameterType="com.dongtong.basic.domain.BaseNotification">
+    update base_notification
+    set
+    status = 0
+    where receiver_id = #{receiverId,jdbcType=BIGINT} and receiver_type = #{receiverType,jdbcType=TINYINT}
+     and notify_type= #{notifyType,jdbcType=TINYINT} and status = 1
+  </update>
+
+  <select id="selectNoticeList" parameterType="com.dongtong.basic.dto.req.BaseNoticeReqDTO" resultType="com.dongtong.basic.dto.resp.NoticeRespDTO" >
+    select * from(
+         select bn.digest as digest,bn.notify_type as notifyType,DATE_FORMAT(bn.create_time,'%Y/%m/%d') as creatTimeFormat,
+          bn.receiver_type as receiverType,bn.receiver_id as receiverId,bn.`status` as status
+         from base_notification bn where bn.receiver_id  = #{receiveId,jdbcType=BIGINT} and bn.receiver_type=#{receiveType,jdbcType=TINYINT}
+         ORDER BY bn.create_time desc
+         ) a group by a.notifyType
+  </select>
+
+  <select id="selectNoticeListByType" parameterType="com.dongtong.basic.query.NoticeQuery" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from base_notification
+    where receiver_id = #{query.receiverId,jdbcType=BIGINT} and notify_type= #{query.notifyType,jdbcType=TINYINT} and receiver_type=#{query.receiverType,jdbcType=TINYINT}
+    ORDER BY create_time desc
+  </select>
+
+  <select id="selectBusNoticeCount" parameterType="com.dongtong.basic.dto.req.BaseNoticeReqDTO" resultType="int" >
+   select count(*) from base_notification
+    where receiver_id = #{receiveId,jdbcType=BIGINT} and receiver_type = #{receiveType,jdbcType=TINYINT}
+     and notify_type=2 and service_type=0
+     and status = 1
+  </select>
+
+  <update id="updateById" parameterType="long">
+    update base_notification
+    set
+    status = 0
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByBusId" parameterType="com.dongtong.basic.domain.BaseNotification">
+    update base_notification
+    set
+    status = 0
+    where biz_id = #{bizId,jdbcType=BIGINT} and notify_type = #{notifyType,jdbcType=TINYINT}
+       and service_type = #{serviceType,jdbcType=TINYINT} and status = 1
+       and receiver_id = #{receiverId,jdbcType=BIGINT} and receiver_type = #{receiverType,jdbcType=TINYINT}
+  </update>
+</mapper>

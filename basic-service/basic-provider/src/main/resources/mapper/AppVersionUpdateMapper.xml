@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.basic.dao.AppVersionUpdateMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.basic.domain.AppVersionUpdate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="os_type" jdbcType="TINYINT" property="osType" />
+    <result column="version_code" jdbcType="INTEGER" property="versionCode" />
+    <result column="version_name" jdbcType="VARCHAR" property="versionName" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="update_level" jdbcType="TINYINT" property="updateLevel" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dongtong.basic.domain.AppVersionUpdate">
+    <result column="desc" jdbcType="LONGVARCHAR" property="desc" />
+    <result column="down_url" jdbcType="LONGVARCHAR" property="downUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, os_type, version_code, version_name, title, update_level, creator, create_time, 
+    modifier, modify_time, version
+  </sql>
+  <sql id="Blob_Column_List">
+    desc, down_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_version_update
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from app_version_update
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.basic.domain.AppVersionUpdate" useGeneratedKeys="true">
+    insert into app_version_update (id, type, os_type, 
+      version_code, version_name, title, 
+      update_level, creator, create_time, 
+      modifier, modify_time, version, 
+      desc, down_url)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{osType,jdbcType=TINYINT}, 
+      #{versionCode,jdbcType=INTEGER}, #{versionName,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{updateLevel,jdbcType=TINYINT}, #{creator,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0, 
+      #{desc,jdbcType=LONGVARCHAR}, #{downUrl,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.basic.domain.AppVersionUpdate" useGeneratedKeys="true">
+    insert into app_version_update
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="osType != null">
+        os_type,
+      </if>
+      <if test="versionCode != null">
+        version_code,
+      </if>
+      <if test="versionName != null">
+        version_name,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="updateLevel != null">
+        update_level,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="desc != null">
+        desc,
+      </if>
+      <if test="downUrl != null">
+        down_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="osType != null">
+        #{osType,jdbcType=TINYINT},
+      </if>
+      <if test="versionCode != null">
+        #{versionCode,jdbcType=INTEGER},
+      </if>
+      <if test="versionName != null">
+        #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="updateLevel != null">
+        #{updateLevel,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="downUrl != null">
+        #{downUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.basic.domain.AppVersionUpdate">
+    update app_version_update
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="osType != null">
+        os_type = #{osType,jdbcType=TINYINT},
+      </if>
+      <if test="versionCode != null">
+        version_code = #{versionCode,jdbcType=INTEGER},
+      </if>
+      <if test="versionName != null">
+        version_name = #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="updateLevel != null">
+        update_level = #{updateLevel,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="desc != null">
+        desc = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="downUrl != null">
+        down_url = #{downUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dongtong.basic.domain.AppVersionUpdate">
+    update app_version_update
+    set type = #{type,jdbcType=TINYINT},
+      os_type = #{osType,jdbcType=TINYINT},
+      version_code = #{versionCode,jdbcType=INTEGER},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      update_level = #{updateLevel,jdbcType=TINYINT},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      desc = #{desc,jdbcType=LONGVARCHAR},
+      down_url = #{downUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.basic.domain.AppVersionUpdate">
+    update app_version_update
+    set type = #{type,jdbcType=TINYINT},
+      os_type = #{osType,jdbcType=TINYINT},
+      version_code = #{versionCode,jdbcType=INTEGER},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      update_level = #{updateLevel,jdbcType=TINYINT},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="findByOsType" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    SELECT * FROM app_version_update WHERE type = #{type,jdbcType=INTEGER} and os_type = #{osType,jdbcType=INTEGER} limit 1
+  </select>
+</mapper>

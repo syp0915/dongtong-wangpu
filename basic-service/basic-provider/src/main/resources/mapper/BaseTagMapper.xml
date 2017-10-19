@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.basic.dao.BaseTagMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.basic.domain.BaseTag">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
+    <result column="tag_color" jdbcType="VARCHAR" property="tagColor" />
+    <result column="tag_type_id" jdbcType="BIGINT" property="tagTypeId" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tag_name, tag_color, tag_type_id, creater, create_time, modifier, modify_time, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_tag
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_tag
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.basic.domain.BaseTag" useGeneratedKeys="true">
+    insert into base_tag (id, tag_name, tag_color, 
+      tag_type_id, creater, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{tagName,jdbcType=VARCHAR}, #{tagColor,jdbcType=VARCHAR}, 
+      #{tagTypeId,jdbcType=BIGINT}, #{creater,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.basic.domain.BaseTag" useGeneratedKeys="true">
+    insert into base_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tagName != null">
+        tag_name,
+      </if>
+      <if test="tagColor != null">
+        tag_color,
+      </if>
+      <if test="tagTypeId != null">
+        tag_type_id,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tagName != null">
+        #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagColor != null">
+        #{tagColor,jdbcType=VARCHAR},
+      </if>
+      <if test="tagTypeId != null">
+        #{tagTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.basic.domain.BaseTag">
+    update base_tag
+    <set>
+      <if test="tagName != null">
+        tag_name = #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagColor != null">
+        tag_color = #{tagColor,jdbcType=VARCHAR},
+      </if>
+      <if test="tagTypeId != null">
+        tag_type_id = #{tagTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.basic.domain.BaseTag">
+    update base_tag
+    set tag_name = #{tagName,jdbcType=VARCHAR},
+      tag_color = #{tagColor,jdbcType=VARCHAR},
+      tag_type_id = #{tagTypeId,jdbcType=BIGINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryTagByType" resultType="com.dongtong.basic.dto.TagInfoDTO" parameterType="java.lang.Long">
+    SELECT
+    id, tag_name AS name,
+    <if test="type != null and type == 3">
+      tag_name As content,
+    </if>
+    tag_color AS color
+FROM
+    base_tag
+    where tag_type_id=#{type}
+  </select>
+  
+  <select id="queryTagById" resultType="java.lang.String">
+     SELECT tag_name AS name
+FROM
+    base_tag
+    <if test="tagIds!=null">
+      where id IN
+      <foreach item="item" index="index" collection="tagIds" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+</mapper>

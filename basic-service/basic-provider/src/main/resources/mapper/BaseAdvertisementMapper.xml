@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.basic.dao.BaseAdvertisementMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.basic.domain.BaseAdvertisement">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ad_type" jdbcType="TINYINT" property="adType" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="ad_pic_url" jdbcType="VARCHAR" property="adPicUrl" />
+    <result column="to_url_type" jdbcType="TINYINT" property="toUrlType" />
+    <result column="to_url" jdbcType="VARCHAR" property="toUrl" />
+    <result column="inner_url_id" jdbcType="BIGINT" property="innerUrlId" />
+    <result column="source" jdbcType="TINYINT" property="source" />
+    <result column="position" jdbcType="INTEGER" property="position" />
+    <result column="click_num" jdbcType="BIGINT" property="clickNum" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dongtong.basic.domain.BaseAdvertisement">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, ad_type, order_num, weight, ad_pic_url, to_url_type, to_url, inner_url_id, 
+    source, position, click_num, begin_time, end_time, status, creater, create_time, 
+    modifier, modify_time, version
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from base_advertisement
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_advertisement
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.basic.domain.BaseAdvertisement" useGeneratedKeys="true">
+    insert into base_advertisement (id, name, ad_type, 
+      order_num, weight, ad_pic_url, 
+      to_url_type, to_url, inner_url_id, 
+      source, position, click_num, 
+      begin_time, end_time, status, 
+      creater, create_time, modifier, 
+      modify_time, version, content
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{adType,jdbcType=TINYINT}, 
+      #{orderNum,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{adPicUrl,jdbcType=VARCHAR}, 
+      #{toUrlType,jdbcType=TINYINT}, #{toUrl,jdbcType=VARCHAR}, #{innerUrlId,jdbcType=BIGINT}, 
+      #{source,jdbcType=TINYINT}, #{position,jdbcType=INTEGER}, #{clickNum,jdbcType=BIGINT}, 
+      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.basic.domain.BaseAdvertisement" useGeneratedKeys="true">
+    insert into base_advertisement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="adType != null">
+        ad_type,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="adPicUrl != null">
+        ad_pic_url,
+      </if>
+      <if test="toUrlType != null">
+        to_url_type,
+      </if>
+      <if test="toUrl != null">
+        to_url,
+      </if>
+      <if test="innerUrlId != null">
+        inner_url_id,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="clickNum != null">
+        click_num,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="adType != null">
+        #{adType,jdbcType=TINYINT},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="adPicUrl != null">
+        #{adPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="toUrlType != null">
+        #{toUrlType,jdbcType=TINYINT},
+      </if>
+      <if test="toUrl != null">
+        #{toUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="innerUrlId != null">
+        #{innerUrlId,jdbcType=BIGINT},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=TINYINT},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="clickNum != null">
+        #{clickNum,jdbcType=BIGINT},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.basic.domain.BaseAdvertisement">
+    update base_advertisement
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="adType != null">
+        ad_type = #{adType,jdbcType=TINYINT},
+      </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="adPicUrl != null">
+        ad_pic_url = #{adPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="toUrlType != null">
+        to_url_type = #{toUrlType,jdbcType=TINYINT},
+      </if>
+      <if test="toUrl != null">
+        to_url = #{toUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="innerUrlId != null">
+        inner_url_id = #{innerUrlId,jdbcType=BIGINT},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="clickNum != null">
+        click_num = #{clickNum,jdbcType=BIGINT},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dongtong.basic.domain.BaseAdvertisement">
+    update base_advertisement
+    set name = #{name,jdbcType=VARCHAR},
+      ad_type = #{adType,jdbcType=TINYINT},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      ad_pic_url = #{adPicUrl,jdbcType=VARCHAR},
+      to_url_type = #{toUrlType,jdbcType=TINYINT},
+      to_url = #{toUrl,jdbcType=VARCHAR},
+      inner_url_id = #{innerUrlId,jdbcType=BIGINT},
+      source = #{source,jdbcType=TINYINT},
+      position = #{position,jdbcType=INTEGER},
+      click_num = #{clickNum,jdbcType=BIGINT},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.basic.domain.BaseAdvertisement">
+    update base_advertisement
+    set name = #{name,jdbcType=VARCHAR},
+      ad_type = #{adType,jdbcType=TINYINT},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      ad_pic_url = #{adPicUrl,jdbcType=VARCHAR},
+      to_url_type = #{toUrlType,jdbcType=TINYINT},
+      to_url = #{toUrl,jdbcType=VARCHAR},
+      inner_url_id = #{innerUrlId,jdbcType=BIGINT},
+      source = #{source,jdbcType=TINYINT},
+      position = #{position,jdbcType=INTEGER},
+      click_num = #{clickNum,jdbcType=BIGINT},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="advList" resultType="com.dongtong.basic.dto.AdvInfoDTO">
+    SELECT ad_pic_url AS adPicUrl,to_url_type as type, to_url AS toUrl FROM base_advertisement
+    where ad_type=3 and source=0
+    and position=#{position} and status=0
+    and now()&gt;=begin_time and now()&lt;=end_time
+    order by weight desc,create_time desc
+  </select>
+
+  <select id="adList" resultType="com.dongtong.basic.dto.AdvInfoDTO">
+    SELECT
+    t1.ad_pic_url AS adPicUrl,
+    t1.to_url_type AS type,
+    t1.to_url AS toUrl,
+    t1.content AS title,
+    t2.inner_type AS innerType,
+    t2.bizId AS businessId
+    FROM
+    base_advertisement t1
+        LEFT JOIN
+    base_inner_url t2 ON t1.inner_url_id = t2.id
+    where t1.ad_type=#{type} and t1.source=0
+    <if test="position!=null and type==3">
+      and t1.position=#{position}
+    </if>
+    and t1.status=0
+    and now()&gt;=begin_time and now()&lt;=end_time
+    order by t1.weight desc,t1.create_time desc
+  </select>
+</mapper>

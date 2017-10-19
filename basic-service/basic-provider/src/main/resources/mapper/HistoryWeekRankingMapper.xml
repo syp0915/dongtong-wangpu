@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.basic.dao.HistoryWeekRankingMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.basic.domain.HistoryWeekRanking">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ranking" jdbcType="VARCHAR" property="ranking" />
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
+    <result column="period" jdbcType="VARCHAR" property="period" />
+    <result column="period_begin_time" jdbcType="TIMESTAMP" property="periodBeginTime" />
+    <result column="period_end_time" jdbcType="TIMESTAMP" property="periodEndTime" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="data_time" jdbcType="VARCHAR" property="dataTime" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_id, head_portrait, name, ranking, quantity, classify, period, period_begin_time, 
+    period_end_time, year, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from clerk_history_week_ranking
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from clerk_history_week_ranking
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.basic.domain.HistoryWeekRanking" useGeneratedKeys="true">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into clerk_history_week_ranking (id, customer_id, head_portrait, 
+      name, ranking, quantity, 
+      classify, period, period_begin_time, 
+      period_end_time, year, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{headPortrait,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{ranking,jdbcType=VARCHAR}, #{quantity,jdbcType=VARCHAR}, 
+      #{classify,jdbcType=TINYINT}, #{period,jdbcType=VARCHAR}, #{periodBeginTime,jdbcType=TIMESTAMP}, 
+      #{periodEndTime,jdbcType=TIMESTAMP}, #{year,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.basic.domain.HistoryWeekRanking" useGeneratedKeys="true">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into clerk_history_week_ranking
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="headPortrait != null">
+        head_portrait,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="ranking != null">
+        ranking,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="classify != null">
+        classify,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="periodBeginTime != null">
+        period_begin_time,
+      </if>
+      <if test="periodEndTime != null">
+        period_end_time,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="headPortrait != null">
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ranking != null">
+        #{ranking,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="periodBeginTime != null">
+        #{periodBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodEndTime != null">
+        #{periodEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.basic.domain.HistoryWeekRanking">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update clerk_history_week_ranking
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="headPortrait != null">
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ranking != null">
+        ranking = #{ranking,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=TINYINT},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="periodBeginTime != null">
+        period_begin_time = #{periodBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodEndTime != null">
+        period_end_time = #{periodEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.basic.domain.HistoryWeekRanking">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update clerk_history_week_ranking
+    set customer_id = #{customerId,jdbcType=BIGINT},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      ranking = #{ranking,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=VARCHAR},
+      classify = #{classify,jdbcType=TINYINT},
+      period = #{period,jdbcType=VARCHAR},
+      period_begin_time = #{periodBeginTime,jdbcType=TIMESTAMP},
+      period_end_time = #{periodEndTime,jdbcType=TIMESTAMP},
+      year = #{year,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" /> 
+    from clerk_history_week_ranking
+    order by create_time desc 
+  </select>
+  <resultMap id="HistoryListResultMap" type="com.dongtong.basic.dto.resp.HistoryRankingListRespDTO">
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPicture" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ranking" jdbcType="VARCHAR" property="ranking" />
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+  </resultMap>
+  <select id="selectPageByTypeAndNO" resultMap="HistoryListResultMap" parameterType="com.dongtong.basic.query.HistoryRankingQuery">
+    SELECT
+		(SELECT head_portrait FROM clerk WHERE id = customer_id LIMIT 1) AS head_portrait,
+		(SELECT real_name FROM clerk WHERE id = customer_id LIMIT 1) AS name, ranking, quantity
+    FROM clerk_history_week_ranking
+	WHERE classify=#{query.classify,jdbcType=INTEGER}
+	  AND year = #{query.year,jdbcType=VARCHAR}
+	  AND CAST(period AS UNSIGNED INTEGER) = #{query.number,jdbcType=INTEGER}
+    ORDER BY CAST(ranking AS DECIMAL) ASC
+  </select>
+  <resultMap id="PersonalResultMap" type="com.dongtong.basic.dto.resp.HistoryPersonalRankingRespDTO">
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPicture" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ranking" jdbcType="VARCHAR" property="ranking" />
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="period" jdbcType="VARCHAR" property="number" />
+    <result column="date_time" jdbcType="VARCHAR" property="dateTime" />
+    <result column="is_participate" jdbcType="TINYINT" property="isParticipate" />
+  </resultMap>
+  <select id="selectByCustomerIdAndPeriod" resultMap="PersonalResultMap" parameterType="com.dongtong.basic.domain.HistoryWeekRanking">
+    SELECT (SELECT id FROM clerk WHERE id= #{customerId,jdbcType=BIGINT} LIMIT 1) AS customer_id,
+		(SELECT head_portrait FROM clerk WHERE id= #{customerId,jdbcType=BIGINT} LIMIT 1) AS head_portrait,
+		(SELECT real_name FROM clerk WHERE id= #{customerId,jdbcType=BIGINT} LIMIT 1) AS name,
+		(SELECT CONCAT_WS('-',DATE_FORMAT(period_begin_time,'%Y.%m.%d'),DATE_FORMAT(period_end_time,'%Y.%m.%d')) as data_time FROM clerk_history_week_ranking
+		  WHERE period = #{period,jdbcType=INTEGER} AND year = #{year,jdbcType=VARCHAR} GROUP BY period_begin_time LIMIT 1) date_time,
+		CASE WHEN quantity IS NULL THEN 0 ELSE quantity END AS quantity,
+		CASE WHEN ranking IS NULL THEN 0 ELSE ranking END AS ranking,
+		CASE WHEN quantity IS NOT NULL AND ranking IS NOT NULL THEN 0 ELSE 1 END is_participate,
+		a.period AS period
+    FROM
+    (SELECT #{year,jdbcType=VARCHAR} AS year,#{classify,jdbcType=INTEGER} AS classify,#{period,jdbcType=INTEGER} AS period, #{customerId,jdbcType=BIGINT} AS customer_id
+    FROM  dual) a
+    LEFT JOIN clerk_history_week_ranking b ON b.year = a.year AND b.classify = a.classify AND b.period = a.period AND b.customer_id = a.customer_id
+    LIMIT 1
+  </select>
+  <resultMap id="ListResultMap" type="com.dongtong.basic.dto.resp.HistoryRankingRespDTO">
+    <result column="period" jdbcType="INTEGER" property="number" />
+    <result column="ranking" jdbcType="VARCHAR" property="ranking" />
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="date_time" jdbcType="VARCHAR" property="dateTime" />
+  </resultMap>
+  <select id="selectByPeriod" resultMap="ListResultMap" parameterType="com.dongtong.basic.domain.HistoryWeekRanking">
+    SELECT CASE WHEN a.quantity IS NULL THEN 0 ELSE a.quantity END AS quantity,b.period,
+        CASE WHEN a.ranking IS NULL THEN 0 ELSE a.ranking END AS ranking,b.date_time
+    FROM
+    (SELECT year,period,CONCAT_WS('-',DATE_FORMAT(period_begin_time,'%Y.%m.%d'),DATE_FORMAT(period_end_time,'%Y.%m.%d')) as date_time
+      FROM clerk_history_week_ranking
+      GROUP BY year,period) b
+    LEFT JOIN (select * from clerk_history_week_ranking where customer_id = #{customerId,jdbcType=BIGINT}
+      AND year = #{year,jdbcType=VARCHAR}
+      AND #{period,jdbcType=INTEGER} >= cast(period as UNSIGNED INTEGER)
+      AND classify=#{classify,jdbcType=INTEGER}) a on a.period=b.period and a.year=b.year
+    ORDER BY b.year,b.period
+  </select>
+</mapper>
