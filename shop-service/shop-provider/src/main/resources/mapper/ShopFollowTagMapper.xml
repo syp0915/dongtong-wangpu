@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.shop.dao.ShopFollowTagMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.shop.domain.ShopFollowTag">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+    <result column="shop_follow_id" jdbcType="BIGINT" property="shopFollowId" />
+    <result column="base_tag_id" jdbcType="BIGINT" property="baseTagId" />
+    <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, shop_id, shop_follow_id, base_tag_id, tag_name, creater, create_time, modifier, 
+    modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_follow_tag
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shop_follow_tag
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.shop.domain.ShopFollowTag" useGeneratedKeys="true">
+    insert into shop_follow_tag (id, shop_id, shop_follow_id, 
+      base_tag_id, tag_name, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{shopId,jdbcType=BIGINT}, #{shopFollowId,jdbcType=BIGINT}, 
+      #{baseTagId,jdbcType=BIGINT}, #{tagName,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.shop.domain.ShopFollowTag" useGeneratedKeys="true">
+    insert into shop_follow_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="shopFollowId != null">
+        shop_follow_id,
+      </if>
+      <if test="baseTagId != null">
+        base_tag_id,
+      </if>
+      <if test="tagName != null">
+        tag_name,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="shopFollowId != null">
+        #{shopFollowId,jdbcType=BIGINT},
+      </if>
+      <if test="baseTagId != null">
+        #{baseTagId,jdbcType=BIGINT},
+      </if>
+      <if test="tagName != null">
+        #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.shop.domain.ShopFollowTag">
+    update shop_follow_tag
+    <set>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="shopFollowId != null">
+        shop_follow_id = #{shopFollowId,jdbcType=BIGINT},
+      </if>
+      <if test="baseTagId != null">
+        base_tag_id = #{baseTagId,jdbcType=BIGINT},
+      </if>
+      <if test="tagName != null">
+        tag_name = #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.shop.domain.ShopFollowTag">
+    update shop_follow_tag
+    set shop_id = #{shopId,jdbcType=BIGINT},
+      shop_follow_id = #{shopFollowId,jdbcType=BIGINT},
+      base_tag_id = #{baseTagId,jdbcType=BIGINT},
+      tag_name = #{tagName,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into shop_follow_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      shop_id,
+      shop_follow_id,
+      base_tag_id,
+      tag_name,
+      creater,
+      create_time,
+      modifier,
+      modify_time,
+      version,
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        #{item.id,jdbcType=BIGINT},
+        #{item.shopId,jdbcType=BIGINT},
+        #{item.shopFollowId,jdbcType=BIGINT},
+        #{item.baseTagId,jdbcType=BIGINT},
+        #{item.tagName,jdbcType=VARCHAR},
+        #{item.creater,jdbcType=BIGINT},
+        #{item.createTime,jdbcType=TIMESTAMP},
+        #{item.modifier,jdbcType=BIGINT},
+        #{item.modifyTime,jdbcType=TIMESTAMP},
+        #{item.version,jdbcType=BIGINT},
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

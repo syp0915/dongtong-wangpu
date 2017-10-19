@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.customer.dao.CustomerScheduleMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.customer.domain.CustomerSchedule">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="clerk_id" jdbcType="BIGINT" property="clerkId" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="biz_id" jdbcType="BIGINT" property="bizId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="application_time" jdbcType="TIMESTAMP" property="applicationTime" />
+    <result column="meet_time" jdbcType="TIMESTAMP" property="meetTime" />
+    <result column="old_meet_time" jdbcType="TIMESTAMP" property="oldMeetTime" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="complete_time" jdbcType="TIMESTAMP" property="completeTime" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, clerk_id, customer_id, biz_id, type, application_time, meet_time, old_meet_time, 
+    province, city, district, address, status, complete_time, creater, create_time, modifier, 
+    modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customer_schedule
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer_schedule
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.customer.domain.CustomerSchedule" useGeneratedKeys="true">
+    insert into customer_schedule (id, clerk_id, customer_id, 
+      biz_id, type, application_time, 
+      meet_time, old_meet_time, address,
+      status, creater,
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{clerkId,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, 
+      #{bizId,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{applicationTime,jdbcType=TIMESTAMP}, 
+      #{meetTime,jdbcType=TIMESTAMP}, #{oldMeetTime,jdbcType=TIMESTAMP},  #{address,jdbcType=VARCHAR},
+      #{status,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT},
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.customer.domain.CustomerSchedule" useGeneratedKeys="true">
+    insert into customer_schedule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="clerkId != null">
+        clerk_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="bizId != null">
+        biz_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="applicationTime != null">
+        application_time,
+      </if>
+      <if test="meetTime != null">
+        meet_time,
+      </if>
+      <if test="oldMeetTime != null">
+        old_meet_time,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="completeTime != null">
+        complete_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="clerkId != null">
+        #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="bizId != null">
+        #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="applicationTime != null">
+        #{applicationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="meetTime != null">
+        #{meetTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldMeetTime != null">
+        #{oldMeetTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="completeTime != null">
+        #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.customer.domain.CustomerSchedule">
+    update customer_schedule
+    <set>
+      <if test="clerkId != null">
+        clerk_id = #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="applicationTime != null">
+        application_time = #{applicationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="meetTime != null">
+        meet_time = #{meetTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldMeetTime != null">
+        old_meet_time = #{oldMeetTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="completeTime != null">
+        complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.customer.domain.CustomerSchedule">
+    update customer_schedule
+    <set>
+      <if test="clerkId != null">
+        clerk_id = #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="applicationTime != null">
+        application_time = #{applicationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="meetTime != null">
+        meet_time = #{meetTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldMeetTime != null">
+        old_meet_time = #{oldMeetTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="completeTime != null">
+        complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="getScheduleList" resultMap="BaseResultMap">
+    SELECT *
+    FROM customer_schedule
+    WHERE
+    <if test="query.type == 0">
+      status = 0 and meet_time &gt;= now()
+    </if>
+    <if test="query.type == 1">
+      (status = 1 OR status = 2 OR meet_time &lt; now())
+    </if>
+    AND customer_id = #{query.userId,jdbcType=BIGINT}
+    <if test="query.type == 0">
+      ORDER BY meet_time ASC
+    </if>
+    <if test="query.type == 1">
+      ORDER BY meet_time DESC
+    </if>
+
+  </select>
+
+  <select id="getScheduleListByCondition" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    SELECT *
+    FROM customer_schedule
+    WHERE status = 0
+    AND meet_time &gt;= #{startDate,jdbcType=VARCHAR}
+    AND meet_time &lt; #{endDate,jdbcType=VARCHAR}
+    AND customer_id = #{customerId, jdbcType=BIGINT}
+    ORDER BY meet_time ASC
+  </select>
+
+  <select id="getUndoScheduleCount" resultType="java.lang.Integer">
+    select count(0)
+    from customer_schedule
+    where customer_id = #{customerId, jdbcType=BIGINT}
+    and status = 0 and meet_time &gt; now()
+  </select>
+  
+  <select id="queryScheduleByBizId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer_schedule
+    where biz_id = #{bizId} and type=#{type}
+    limit 1
+  </select>
+
+  <select id="getNewestSchedule" resultType="java.util.HashMap">
+    select count(*) as scheduleCount,a.*
+    from
+    (select customer_id, biz_id,type,meet_time,province,city,district,address from customer_schedule
+         where  to_days(meet_time) = to_days(now()) and status=0 ORDER BY meet_time desc) a
+    GROUP BY customer_id
+  </select>
+
+  <select id="queryScheduleByCustomerId" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM customer_schedule
+    WHERE customer_id = #{customerId}
+  </select>
+
+  <select id="getScheduleInfoById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer_schedule
+    where id = #{scheduleId} and customer_id = #{customerId}
+  </select>
+
+  <update id="expireCustomerSchedule">
+    UPDATE customer_schedule
+    SET status = 3
+    WHERE meet_time &lt;= now()
+    AND status = 0
+  </update>
+
+  <select id="getArrivalTimeSchedule" resultMap="BaseResultMap">
+    SELECT clerk_id,biz_id,type,meet_time,province,city,district,address
+     from customer_schedule
+     where TIMESTAMPDIFF(MINUTE,NOW(),meet_time) BETWEEN 112 AND 128 and type in (3,5)
+     and `status`=0
+  </select>
+  <update id="revokeByBizId">
+   update customer_schedule set status = 2
+    where biz_id = #{bizId} and type=#{type} and meet_time >= now()
+  </update>
+
+  <select id="getScheduleInfo" resultMap="BaseResultMap">
+    select * from `customer_schedule` where biz_id=#{bizId} and type=#{type} order by create_time desc limit 1
+  </select>
+
+</mapper>

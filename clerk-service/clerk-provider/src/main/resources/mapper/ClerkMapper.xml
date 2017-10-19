@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.clerk.dao.ClerkMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.clerk.domain.Clerk">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="role_type" jdbcType="TINYINT" property="roleType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="os_type" jdbcType="TINYINT" property="osType" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, phone, real_name, head_portrait, invitation_code, role_type, status, device_id,
+    os_type, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from clerk
+    where id = #{id,jdbcType=BIGINT} and status = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from clerk
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.clerk.domain.Clerk" useGeneratedKeys="true">
+    insert into clerk (id, phone, real_name,
+    head_portrait, invitation_code, role_type,
+    status, device_id, os_type,
+    creater, create_time, modifier,
+    modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR},
+    #{headPortrait,jdbcType=VARCHAR}, #{invitationCode,jdbcType=VARCHAR}, #{roleType,jdbcType=TINYINT},
+    #{status,jdbcType=TINYINT}, #{deviceId,jdbcType=VARCHAR}, #{osType,jdbcType=TINYINT},
+    #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT},
+    #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.clerk.domain.Clerk" useGeneratedKeys="true">
+    insert into clerk
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="headPortrait != null">
+        head_portrait,
+      </if>
+      <if test="invitationCode != null">
+        invitation_code,
+      </if>
+      <if test="roleType != null">
+        role_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="osType != null">
+        os_type,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null">
+        #{osType,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.clerk.domain.Clerk">
+    update clerk
+    <set>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        role_type = #{roleType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null">
+        os_type = #{osType,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.clerk.domain.Clerk">
+    update clerk
+    set phone = #{phone,jdbcType=VARCHAR},
+    real_name = #{realName,jdbcType=VARCHAR},
+    head_portrait = #{headPortrait,jdbcType=VARCHAR},
+    invitation_code = #{invitationCode,jdbcType=VARCHAR},
+    role_type = #{roleType,jdbcType=TINYINT},
+    status = #{status,jdbcType=TINYINT},
+    device_id = #{deviceId,jdbcType=VARCHAR},
+    os_type = #{osType,jdbcType=TINYINT},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="getClerkInfoByUserPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM clerk
+    WHERE phone = #{userPhone,jdbcType=VARCHAR} and status=0
+    LIMIT 1
+  </select>
+
+  <select id="getClerkId" resultType="long">
+    SELECT id FROM clerk
+  </select>
+
+  <select id="getAllClerkInfo" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM clerk
+    WHERE status = 0;
+  </select>
+
+</mapper>

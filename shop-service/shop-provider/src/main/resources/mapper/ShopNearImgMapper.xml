@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.shop.dao.ShopNearImgMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.shop.domain.ShopNearImg">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="near_id" jdbcType="BIGINT" property="nearId" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="img_index" jdbcType="INTEGER" property="imgIndex" />
+    <result column="is_cover" jdbcType="TINYINT" property="isCover" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, near_id, img_url, img_index, is_cover, creater, create_time, modifier, modify_time, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_near_img
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shop_near_img
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.shop.domain.ShopNearImg" useGeneratedKeys="true">
+    insert into shop_near_img (id, near_id, img_url, 
+      img_index, is_cover, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{nearId,jdbcType=BIGINT}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{imgIndex,jdbcType=INTEGER}, #{isCover,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.shop.domain.ShopNearImg" useGeneratedKeys="true">
+    insert into shop_near_img
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nearId != null">
+        near_id,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="imgIndex != null">
+        img_index,
+      </if>
+      <if test="isCover != null">
+        is_cover,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="nearId != null">
+        #{nearId,jdbcType=BIGINT},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgIndex != null">
+        #{imgIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isCover != null">
+        #{isCover,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.shop.domain.ShopNearImg">
+    update shop_near_img
+    <set>
+      <if test="nearId != null">
+        near_id = #{nearId,jdbcType=BIGINT},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgIndex != null">
+        img_index = #{imgIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isCover != null">
+        is_cover = #{isCover,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.shop.domain.ShopNearImg">
+    update shop_near_img
+    set near_id = #{nearId,jdbcType=BIGINT},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_index = #{imgIndex,jdbcType=INTEGER},
+      is_cover = #{isCover,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <insert id="insertList" parameterType="java.util.List">
+    insert into shop_near_img (near_id, img_url, img_index, is_cover, creater, create_time, modifier, modify_time, version)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (${nearId}, #{item.imgUrl,jdbcType=VARCHAR},
+      #{item.imgIndex,jdbcType=INTEGER}, #{item.isCover,jdbcType=TINYINT}, null,
+      now(), null, null,
+      0)
+    </foreach>
+  </insert>
+
+  <delete id="deleteByNearId" parameterType="java.lang.Long">
+    DELETE from shop_near_img where near_id  =#{nearId,jdbcType=BIGINT}
+  </delete>
+
+  <select id="selectNearImg" parameterType="java.lang.Long" resultType="com.dongtong.shop.dto.ShopImgDTO">
+    SELECT t.img_url as 'imgUrl',t.img_index as 'imgIndex',t.is_cover as 'isCover'  from shop_near_img t
+    where t.near_id = #{nearId,jdbcType=BIGINT}
+  </select>
+</mapper>

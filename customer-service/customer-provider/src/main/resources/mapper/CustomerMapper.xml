@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.customer.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.customer.domain.Customer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="is_banned" jdbcType="TINYINT" property="isBanned" />
+    <result column="source" jdbcType="TINYINT" property="source" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="os_type" jdbcType="TINYINT" property="osType" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, phone, real_name, head_portrait, invitation_code,is_banned,source, status,
+    nick_name, signature,os_type, device_id,last_login_time,
+    creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.customer.domain.Customer" useGeneratedKeys="true">
+    insert into customer (id, phone, real_name,
+    head_portrait, invitation_code,is_banned,source, status,
+    device_id, os_type, nick_name, signature, last_login_time,creater,
+    create_time, modifier, modify_time,
+    version)
+    values (#{id,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR},
+    #{headPortrait,jdbcType=VARCHAR}, #{invitationCode,jdbcType=VARCHAR}, #{isBanned,jdbcType=TINYINT}, #{source,jdbcType=TINYINT},#{status,jdbcType=TINYINT},
+    #{deviceId,jdbcType=VARCHAR}, #{osType,jdbcType=TINYINT}, #{nickName,jdbcType=VARCHAR},
+    #{signature,jdbcType=VARCHAR}, now(), #{creater,jdbcType=BIGINT},
+    now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP},
+    0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.customer.domain.Customer" useGeneratedKeys="true">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="headPortrait != null">
+        head_portrait,
+      </if>
+      <if test="invitationCode != null">
+        invitation_code,
+      </if>
+      <if test="isBanned != null">
+        is_banned,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="osType != null">
+        os_type,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="signature != null">
+        signature,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isBanned != null">
+        #{isBanned,jdbcType=TINYINT},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null">
+        #{osType,jdbcType=TINYINT},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.customer.domain.Customer">
+    update customer
+    <set>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isBanned != null">
+        is_banned = #{isBanned,jdbcType=TINYINT},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null">
+        os_type = #{osType,jdbcType=TINYINT},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.customer.domain.Customer">
+    update customer
+    set phone = #{phone,jdbcType=VARCHAR},
+    real_name = #{realName,jdbcType=VARCHAR},
+    head_portrait = #{headPortrait,jdbcType=VARCHAR},
+    invitation_code = #{invitationCode,jdbcType=VARCHAR},
+    is_banned = #{isBanned,jdbcType=TINYINT},
+    source = #{source,jdbcType=TINYINT},
+    status = #{status,jdbcType=TINYINT},
+    nick_name = #{nickName,jdbcType=VARCHAR},
+    signature = #{signature,jdbcType=VARCHAR},
+    last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="findCustomerInfoByUserPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer
+    where phone = #{userPhone,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+  <select id="selectByCustomerId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer
+    where id = #{id,jdbcType=BIGINT} and status = 0
+  </select>
+
+  <select id="getCustomerInfoByUserPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM customer
+    WHERE phone = #{userPhone,jdbcType=VARCHAR}
+    LIMIT 1
+  </select>
+
+  <select id="queryCustomerInfo" resultType="com.dongtong.customer.dto.CustomerDTO" parameterType="java.lang.Long">
+    SELECT
+	phone,real_name as realName,head_portrait as headPortrait,invitation_code as invitationCode,
+	nick_name AS nickName,signature,is_banned AS isBanned
+    FROM
+    dongtong_shop.customer
+    where status=0 and id=#{customerId}
+  </select>
+
+  <select id="indexStatistics" parameterType="java.lang.Long" resultType="com.dongtong.customer.dto.resp.IndexStatisticsRespDTO">
+    SELECT m1.issuerCount,m2.visitCount,m3.collectedCount,m4.browseCount,m5.scheduleCount from (
+      select c.id as 'cusId',COUNT(*) as issuerCount from shop s LEFT JOIN customer c on s.contact_tel = c.phone
+       where s.is_delete = 0 and s.rent_status != -9 and c.id = #{customerId} )m1,
+      (
+      SELECT c.id as 'cusId',COUNT(DISTINCT shop_id)  as visitCount FROM customer_visit_shop cvs LEFT JOIN customer c on cvs.customer_id = c.id
+      where c.id=#{customerId} ) m2,
+      (
+      SELECT c.id as 'cusId',COUNT(DISTINCT shop_id)  as collectedCount FROM customer_collected_shop ccs LEFT JOIN customer c on ccs.customer_id = c.id
+      where c.id=#{customerId} )m3,
+      (
+      SELECT c.id as 'cusId',COUNT(DISTINCT shop_id)  as browseCount FROM customer_browse_shop cbs LEFT JOIN customer c on cbs.customer_id = c.id
+      where c.id=#{customerId} )m4,
+      (
+      select c.id as 'cusId',COUNT(*) as scheduleCount from customer_schedule cs LEFT JOIN customer c on cs.customer_id = c.id
+       where c.id  = #{customerId} and cs.status = 0 and cs.meet_time > now()
+      )m5
+  </select>
+
+  <!-- 关注修改 by chenxiushen-->
+  <resultMap id="customerInfo" type="com.dongtong.customer.dto.CustomerInfoDTO">
+    <id column="customerId" property="customerId" jdbcType="BIGINT"/>
+    <result column="phone" property="phone" jdbcType="VARCHAR"/>
+    <result column="headPortrait" property="headPortrait" jdbcType="VARCHAR"/>
+    <result column="nickName" property="nickName" jdbcType="VARCHAR"/>
+    <result column="signature" property="signature" jdbcType="VARCHAR"/>
+    <result column="isBanned" property="isBanned" jdbcType="BIT"/>
+    <association property="attention" javaType="com.dongtong.customer.dto.resp.AttentionRespDTO">
+      <collection property="vocationList" column="customerId" ofType="java.lang.String" select="selectVocationListByCustomer" />
+      <collection property="plateList" column="customerId" ofType="java.lang.String" select="selectPlateListByCustomer" />
+      <collection property="areaList" column="customerId" ofType="java.lang.String" select="selectAreaByCustomerId" />
+    </association>
+  </resultMap>
+  <select id="queryInfoByCustomerId" resultMap="customerInfo" parameterType="java.lang.Long">
+    SELECT t.id as customerId,
+    t.phone AS phone,
+    t.head_portrait AS headPortrait,
+    t.nick_name AS nickName,
+    t.signature,
+    t.is_banned AS isBanned
+    FROM
+    customer t
+    WHERE status = 0 and t.id=#{customerId}
+  </select>
+  <select id="selectAreaByCustomerId" resultType="java.lang.Integer" parameterType="java.lang.Long">
+    SELECT
+    (CASE min_area
+    WHEN 0 THEN 1
+    WHEN 20 THEN 2
+    WHEN 50 THEN 3
+    WHEN 100 THEN 4
+    WHEN 200 THEN 5
+    WHEN 500 THEN 6
+    WHEN 1000 THEN 7
+    END) AS area
+    from customer_attention_area where customer_id=#{customerId,jdbcType=BIGINT}
+  </select>
+  <select id="selectPlateListByCustomer" parameterType="java.lang.Long" resultType="com.dongtong.customer.dto.resp.AttentionPlateRespDTO">
+    SELECT province_id AS provinceId, province_name AS provinceName,area_id AS districtId,area_name AS districtName,
+    city_id AS cityId, city_name AS cityName, plate_id AS plateId, plate_name AS plateName
+    FROM customer_attention_plate
+    WHERE customer_id=#{customerId,jdbcType=BIGINT}
+  </select>
+  <select id="selectVocationListByCustomer" parameterType="java.lang.Long" resultType="com.dongtong.customer.dto.resp.AttentionVocationRespDTO">
+    SELECT vocation_id AS vocationId, vocation_name AS vocationName
+    FROM customer_attention_vocation
+    WHERE customer_id=#{customerId,jdbcType=BIGINT}
+  </select>
+  <resultMap id="ServiceInfo" type="com.dongtong.customer.dto.ServiceListDTO">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="address" property="address" jdbcType="VARCHAR"/>
+    <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+    <result column="type" property="type" jdbcType="VARCHAR"/>
+    <result column="shopStatus" property="shopStatus" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="selectServiceList" resultMap="ServiceInfo">
+  SELECT * FROM (SELECT id,(SELECT h.address FROM shop h WHERE h.id = v.`shop_id`) address,DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') createTime,
+    1 TYPE,v.status shopStatus  FROM customer_visit_shop v WHERE 1=1
+    AND customer_id = #{query.userId,jdbcType=BIGINT}
+    UNION ALL
+    SELECT id,shop_address,DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') createTime,0 TYPE,
+    (CASE h.status WHEN 0 THEN 0 WHEN 1 THEN 0 WHEN 2 THEN 0 WHEN 3 THEN 0 WHEN 4 THEN 3 WHEN 5 THEN 4 WHEN 6 THEN 2 END) shopStatus FROM clerk_hint h
+    WHERE h.hint_from = 2 AND creater = #{query.userId,jdbcType=BIGINT}
+    UNION ALL
+    SELECT id,shop_address,DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') createTime,2 TYPE,(CASE s.status WHEN 0 THEN 0 WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 9 THEN 2 END) shopStatus
+    FROM customer_sign s WHERE customer_id = #{query.userId,jdbcType=BIGINT} ) service_shop
+    where 1=1
+    <if test="query.type != null and query.type == 1">
+      AND service_shop.shopStatus = 0
+    </if>
+    <if test="query.type != null and query.type == 2">
+      and service_shop.shopStatus in (1,3)
+    </if>
+    <if test="query.type != null and query.type == 3">
+      and service_shop.shopStatus > 1 and service_shop.shopStatus != 3
+    </if>
+    ORDER BY createTime DESC
+  </select>
+  <select id="selectServiceHintDetail" parameterType="com.dongtong.customer.query.CustomerServiceQuery" resultType="com.dongtong.customer.dto.ServiceDetailDTO">
+     SELECT h.id,shop_address address,discard_cause discardReason,DATE_FORMAT(h.create_time, '%Y-%m-%d %H:%i:%s') createTime,0 TYPE,
+     (SELECT id FROM shop s WHERE s.hint_id = h.id) shopId,linkman_name contactPerson,linkman_phone contactPhone,c.phone clerkPhone,c.real_name clerkName,c.head_portrait clerkHead,
+    (CASE h.status WHEN 0 THEN 0 WHEN 1 THEN 0 WHEN 2 THEN 0 WHEN 3 THEN 0 WHEN 4 THEN 1 WHEN 5 THEN 4 WHEN 6 THEN 3 END) shopStatus
+     FROM clerk_hint h LEFT JOIN clerk c ON h.owner_id = c.id
+      WHERE h.id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectServiceVisitDetail" parameterType="com.dongtong.customer.query.CustomerServiceQuery" resultType="com.dongtong.customer.dto.ServiceDetailDTO">
+    SELECT v.id,(SELECT h.address FROM shop h WHERE h.id = v.`shop_id`) address,DATE_FORMAT(v.create_time, '%Y-%m-%d %H:%i:%s') createTime,
+    1 TYPE,CASE v.status WHEN 0 THEN 0 WHEN 1 THEN 2 WHEN 2 THEN 3 END shopStatus,c.phone clerkPhone,c.real_name clerkName,c.head_portrait clerkHead,linkman_name contactPerson,linkman_phone contactPhone,v.`shop_id` shopId,cancel_cause discardReason
+    FROM customer_visit_shop v
+    LEFT JOIN clerk c ON v.`clerk_id` = c.id  WHERE v.id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectServiceSignDetail" parameterType="com.dongtong.customer.query.CustomerServiceQuery" resultType="com.dongtong.customer.dto.ServiceDetailDTO">
+    SELECT s.id,s.reason discardReason,shop_address address,DATE_FORMAT(s.create_time, '%Y-%m-%d %H:%i:%s') createTime,2 TYPE,(CASE s.status WHEN 0 THEN 0 WHEN 1 THEN 2 WHEN 2 THEN 2 WHEN 9 THEN 3 END) shopStatus,`shop_id` shopId,
+    contacter contactPerson,contact_mobile contactPhone,c.phone clerkPhone,c.real_name clerkName,c.head_portrait clerkHead
+    FROM customer_sign s
+    LEFT JOIN clerk c ON s.`clerk_id` = c.id
+     WHERE s.id = #{id,jdbcType=BIGINT}
+  </select>
+  <update id="confirmVisit" parameterType="java.lang.Long" >
+    update customer_visit_shop set status = 1
+    WHERE id=#{id,jdbcType=BIGINT}
+  </update>
+  <update id="confirmSign" parameterType="java.lang.Long" >
+    update customer_sign set status = 1
+    WHERE id=#{id,jdbcType=BIGINT}
+  </update>
+  <update id="revokedHint" parameterType="java.lang.Long">
+    update clerk_hint set status = 6,discard_time=now()
+    WHERE id=#{id,jdbcType=BIGINT}
+  </update>
+  <update id="revokedVisit" parameterType="java.lang.Long">
+    update customer_visit_shop set status = 2,cancel_time=now()
+    WHERE id=#{id,jdbcType=BIGINT}
+  </update>
+  <update id="revokedSign" parameterType="java.lang.Long">
+    update customer_sign set status = 9,cancel_time=now()
+    WHERE id=#{id,jdbcType=BIGINT}
+  </update>
+</mapper>

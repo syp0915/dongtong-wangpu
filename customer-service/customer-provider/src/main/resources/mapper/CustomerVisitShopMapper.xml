@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.customer.dao.CustomerVisitShopMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.customer.domain.CustomerVisitShop">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+    <result column="clerk_id" jdbcType="BIGINT" property="clerkId" />
+    <result column="clerk_name" jdbcType="VARCHAR" property="clerkName" />
+    <result column="visit_time" jdbcType="TIMESTAMP" property="visitTime" />
+    <result column="linkman_name" jdbcType="VARCHAR" property="linkmanName" />
+    <result column="linkman_phone" jdbcType="VARCHAR" property="linkmanPhone" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="revocation_time" jdbcType="TIMESTAMP" property="revocationTime" />
+    <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
+    <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
+    <result column="tag_id" jdbcType="BIGINT" property="tagId" />
+    <result column="cancel_cause" jdbcType="VARCHAR" property="cancelCause" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_id, shop_id, clerk_id, clerk_name, visit_time, linkman_name, linkman_phone, 
+    status, revocation_time, success_time, cancel_time, tag_id, cancel_cause,is_delete,
+    creater,create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer_visit_shop
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectById" parameterType="java.lang.Long" resultType="com.dongtong.customer.dto.resp.VisitShopRespDTO">
+   select a.`id` id,
+     a.`customer_id` customerId,
+     a.`clerk_id` clerkId,
+    b.`address` shopAddress,
+     DATE_FORMAT( a.`visit_time`,'%Y-%m-%d %H:%i:%s')  visitTime,
+     a.`status` STATUS,
+     a.`linkman_name` linkmanName,
+     a.`linkman_phone` linkmanPhone,
+     b.`contacter` contacter,
+     b.`contact_tel` contacterTel,
+     a.tag_id tagId,
+     a.cancel_cause cancelCause,
+     c.`img_url` coverImgUrl
+    FROM
+  customer_visit_shop a  left JOIN shop b ON a.`shop_id`=b.`id`
+  LEFT JOIN shop_img c ON a.`shop_id`=c.`shop_id`
+    AND c.`is_cover`=1
+   where a.id = #{id,jdbcType=BIGINT}
+    order by a.create_time desc
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer_visit_shop
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.customer.domain.CustomerVisitShop" useGeneratedKeys="true">
+    insert into customer_visit_shop (id, customer_id, shop_id, 
+      clerk_id, clerk_name, visit_time, 
+      linkman_name, linkman_phone, status, 
+      revocation_time, success_time, cancel_time, 
+      tag_id, cancel_cause,is_delete, creater,
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{shopId,jdbcType=BIGINT}, 
+      #{clerkId,jdbcType=BIGINT}, #{clerkName,jdbcType=VARCHAR}, #{visitTime,jdbcType=TIMESTAMP}, 
+      #{linkmanName,jdbcType=VARCHAR}, #{linkmanPhone,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{revocationTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP}, #{cancelTime,jdbcType=TIMESTAMP}, 
+      #{tagId,jdbcType=BIGINT}, #{cancelCause,jdbcType=VARCHAR},#{isDelete,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT},
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.customer.domain.CustomerVisitShop" useGeneratedKeys="true">
+    insert into customer_visit_shop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="clerkId != null">
+        clerk_id,
+      </if>
+      <if test="clerkName != null">
+        clerk_name,
+      </if>
+      <if test="visitTime != null">
+        visit_time,
+      </if>
+      <if test="linkmanName != null">
+        linkman_name,
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="revocationTime != null">
+        revocation_time,
+      </if>
+      <if test="successTime != null">
+        success_time,
+      </if>
+      <if test="cancelTime != null">
+        cancel_time,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+      <if test="cancelCause != null">
+        cancel_cause,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkId != null">
+        #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkName != null">
+        #{clerkName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        #{visitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkmanName != null">
+        #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="revocationTime != null">
+        #{revocationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null">
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null">
+        #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="cancelCause != null">
+        #{cancelCause,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.customer.domain.CustomerVisitShop">
+    update customer_visit_shop
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkId != null">
+        clerk_id = #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkName != null">
+        clerk_name = #{clerkName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        visit_time = #{visitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkmanName != null">
+        linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="revocationTime != null">
+        revocation_time = #{revocationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null">
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null">
+        cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="cancelCause != null">
+        cancel_cause = #{cancelCause,jdbcType=VARCHAR},
+      </if>
+
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.customer.domain.CustomerVisitShop">
+    update customer_visit_shop
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkId != null">
+        clerk_id = #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkName != null">
+        clerk_name = #{clerkName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        visit_time = #{visitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkmanName != null">
+        linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="revocationTime != null">
+        revocation_time = #{revocationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null">
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null">
+        cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="cancelCause != null">
+        cancel_cause = #{cancelCause,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getDeadTimeNum"  resultType="int" parameterType="com.dongtong.customer.dto.req.VisitShopReqDTO">
+   SELECT COUNT(*) FROM `customer_visit_shop` WHERE clerk_id=#{clerkId} AND <![CDATA[ visit_time<now()]]> and status=0
+  </select>
+
+  <select id="selectByPage" resultType="com.dongtong.customer.dto.resp.VisitShopRespDTO">
+    select
+     a.`id` id,
+     a.clerk_id clerkId,
+     b.`address` shopAddress,
+     DATE_FORMAT( a.`visit_time`,'%Y-%m-%d %H:%i:%s') visitTime,
+     a.`status` STATUS,
+     a.`linkman_name` linkmanName,
+     a.`linkman_phone` linkmanPhone,
+     b.`contacter` contacter,
+     b.`contact_tel` contacterTel,
+      a.tag_id tagId,
+     a.cancel_cause cancelCause
+    FROM
+  customer_visit_shop a left JOIN shop b ON a.`shop_id`=b.`id`
+   where a.clerk_id=#{visitShopReqDTO.clerkId}
+    order by a.status,CASE WHEN a.status='0' THEN a.`visit_time` END ASC,
+    CASE WHEN a.status!='0' THEN a.`visit_time` END DESC
+
+  </select>
+  <select id="selectNeedByPage" resultType="com.dongtong.customer.dto.resp.VisitShopRespDTO">
+    select
+    a.`id` id,
+    b.`address` shopAddress,
+    DATE_FORMAT( a.`visit_time`,'%Y-%m-%d %H:%i:%s') visitTime,
+    a.`status` STATUS,
+    a.`linkman_name` linkmanName,
+    a.`linkman_phone` linkmanPhone,
+    b.`contacter` contacter,
+    b.`contact_tel` contacterTel,
+     a.tag_id tagId,
+     a.cancel_cause cancelCause
+    FROM
+    customer_visit_shop a  left JOIN shop b ON a.`shop_id`=b.`id`
+    where a.clerk_id=#{visitShopReqDTO.clerkId}
+    AND  a.status='0'
+    order by a.visit_time
+  </select>
+  <select id="queryShopVisitInfo" resultType="java.lang.Long">
+    SELECT
+        id AS visitId
+    FROM
+        customer_visit_shop
+    WHERE
+        status in (0,1) AND is_delete = 0 AND shop_id = #{shopId}
+            AND customer_id = #{customerId} limit 1
+  </select>
+
+
+  <select id="myVisitStatistic" resultType="com.dongtong.customer.dto.resp.VisitedStatisticDTO">
+    SELECT
+    m1.customerId,
+    m1.totalCollected,
+    m2.totalCustomer,
+    (@rowNum:=@rowNum + 1) AS rowNo
+    FROM
+    (SELECT
+    customer_id AS customerId,
+    COUNT(distinct shop_id) AS totalCollected
+    FROM
+    customer_visit_shop
+    GROUP BY customer_id
+    ORDER BY totalCollected DESC) m1,
+    (SELECT
+    COUNT(*) totalCustomer
+    FROM
+    customer) m2,
+    (SELECT (@rowNum:=0)) temp
+  </select>
+  
+  <select id="queryShopVisitById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer_visit_shop
+    where shop_id = #{shopId}
+    <if test="customerId != null">
+      and customer_id=#{customerId}
+    </if>
+    and status!=2 and is_delete=0
+  </select>
+
+  <select id="queryVisitByParams" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer_visit_shop
+    where shop_id = #{shopId} and customer_id=#{customerId} and status=0 and is_delete=0
+    order by create_time desc limit 1
+  </select>
+
+
+  <update id="cannelShopVisitByShopId">
+    UPDATE  customer_visit_shop  set `status` ='2' , is_delete=1, modify_time = NOW(), version = version +1
+    where id in (
+    SELECT tmp.id FROM (select id  from customer_visit_shop where shop_id = #{shopId} and customer_id= #{customerId}  and status!=2 and is_delete=0) tmp
+    )
+  </update>
+
+  <select id="pendingList" resultType="com.dongtong.customer.dto.resp.VisitShopRespDTO">
+     select
+    a.`id` id,
+    a.clerk_id clerkId,
+    b.`address` shopAddress,
+    DATE_FORMAT( a.`visit_time`,'%Y-%m-%d %H:%i:%s') visitTime,
+    a.`status` STATUS,
+    a.`linkman_name` linkmanName,
+    a.`linkman_phone` linkmanPhone,
+    b.block_name blockName,
+    b.district_name districtName
+    FROM
+    customer_visit_shop a  JOIN shop b ON a.`shop_id`=b.`id`
+    where  a.status='0'
+    order by a.visit_time
+  </select>
+
+  <!--客户最近约看-->
+  <resultMap id="Shop_Last_Visited_Customer" type="com.dongtong.customer.dto.VisitDTO">
+    <result column="customerId" property="customerId" jdbcType="BIGINT"/>
+    <result column="shopId" property="shopId" jdbcType="BIGINT"/>
+    <result column="coverImg" property="coverImg" jdbcType="VARCHAR"/>
+    <result column="address" property="address" jdbcType="VARCHAR"/>
+    <result column="area" property="area" jdbcType="REAL"/>
+    <result column="rentType" property="rentType" jdbcType="INTEGER"/>
+    <association column="{shopId=shopId,customerId=customerId}" property="visitCount" jdbcType="INTEGER" select="selectVisitCountByVisited"/>
+  </resultMap>
+
+  <select id="queryLastVisit" resultMap="Shop_Last_Visited_Customer">
+    SELECT cvs.customer_id as customerId, cvs.shop_id As shopId, s.address As address, s.area As area, s.rent_type As rentType, si.img_url As coverImg
+    FROM customer_visit_shop cvs
+        LEFT JOIN shop s ON cvs.shop_id = s.id
+        LEFT JOIN shop_img si ON s.id = si.shop_id
+            AND si.is_cover = 1
+    WHERE cvs.is_delete = 0 and cvs.status != 2 and cvs.customer_id = #{customerId}
+    ORDER BY cvs.create_time DESC
+    LIMIT 1
+  </select>
+
+  <select id="selectVisitCountByVisited" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT t.rowNo from  (
+    SELECT m1.customer_id ,(@rowNum:=@rowNum+1) as rowNo from (SELECT * FROM customer_visit_shop   where  shop_id= #{shopId}
+    ORDER BY  create_time DESC) m1,(SELECT @rowNum :=-1) m2 ) t where t.customer_id= #{customerId} limit 1;
+  </select>
+
+  <!--客户和房东信息-->
+  <resultMap id="Tenant_And_Landlord" type="com.dongtong.customer.dto.TenantAndLandlordDTO">
+    <result column="tenantId" property="tenantId" jdbcType="BIGINT"/>
+    <result column="landlordId" property="landlordId" jdbcType="BIGINT"/>
+
+    <association column="tenantId" property="tenantDTO" jdbcType="INTEGER" select="selectTenant" javaType="com.dongtong.customer.dto.TenantDTO">
+      <result column="tenantPhone" property="tenantPhone" jdbcType="VARCHAR"/>
+      <result column="tenantDeviceId" property="tenantDeviceId" jdbcType="VARCHAR"/>
+      <result column="tenantOsType" property="tenantOsType" jdbcType="INTEGER"/>
+    </association>
+    <association column="landlordId" property="landlordDTO" jdbcType="INTEGER" select="selectLandlord" javaType="com.dongtong.customer.dto.LandlordDTO">
+      <result column="landlordPhone" property="landlordPhone" jdbcType="VARCHAR"/>
+      <result column="landlordDeviceId" property="landlordDeviceId" jdbcType="VARCHAR"/>
+      <result column="landlordOsType" property="landlordOsType" jdbcType="INTEGER"/>
+    </association>
+  </resultMap>
+
+  <select id="getTenantAndLandlord" resultMap="Tenant_And_Landlord">
+    select cvs.customer_id As tenantId,ch.issuer_id As landlordId from customer_visit_shop cvs
+    left join shop s on cvs.shop_id = s.id
+    left join clerk_hint ch on ch.id=s.hint_id and ch.hint_from=2
+    where cvs.id=#{id}
+  </select>
+
+  <select id="selectTenant" parameterType="java.lang.Long" resultType="com.dongtong.customer.dto.TenantDTO">
+    select phone As tenantPhone,device_id As tenantDeviceId,os_type As tenantOsType from customer where id=#{tenantId}
+  </select>
+  <select id="selectLandlord" parameterType="java.lang.Long" resultType="com.dongtong.customer.dto.LandlordDTO">
+    select phone As landlordPhone,device_id As landlordDeviceId,os_type As landlordOsType from customer where id=#{landlordId}
+  </select>
+</mapper>

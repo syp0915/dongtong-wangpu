@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <!-- 定义使用服务的的消费者bean -->
+    <bean id="referenceBean" abstract="true" class="com.alibaba.dubbo.config.spring.ReferenceBean">
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="consumer" ref="consumerConfig"/>
+        <property name="version" value="${consumer.default_version}"/>
+        <!--<property name="version" value="1.0.1.dongtong.zhz"/>-->
+        <property name="monitor" ref="monitorConfig"/>
+    </bean>
+
+    <bean id="consumerConfig" class="com.alibaba.dubbo.config.ConsumerConfig">
+        <property name="check" value="${consume.service_check}"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.customer.service.CustomerService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.customer.service.CustomerSignSerivce"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.NotificationService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.SmsService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.customer.service.ScheduleService"/>
+        <property name="retries" value="0" />
+        <property name="timeout" value="6000"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.BaseShopNumberService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.NoticePushService"/>
+    </bean>
+
+</beans>

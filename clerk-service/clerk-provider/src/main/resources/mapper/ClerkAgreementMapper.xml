@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.clerk.dao.ClerkAgreementMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.clerk.domain.ClerkAgreement">
+  <id column="id" jdbcType="BIGINT" property="id" />
+  <result column="sign_id" jdbcType="BIGINT" property="signId" />
+  <result column="clerk_id" jdbcType="BIGINT" property="clerkId" />
+  <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+  <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+  <result column="shop_address" jdbcType="VARCHAR" property="shopAddress" />
+  <result column="district_id" jdbcType="BIGINT" property="districtId" />
+  <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+  <result column="block_id" jdbcType="BIGINT" property="blockId" />
+  <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+  <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+  <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  <result column="rent_way" jdbcType="TINYINT" property="rentWay" />
+  <result column="rent" jdbcType="DECIMAL" property="rent" />
+  <result column="transfer_fee" jdbcType="DECIMAL" property="transferFee" />
+  <result column="rent_name" jdbcType="DECIMAL" property="rentName" />
+  <result column="rent_moblie" jdbcType="VARCHAR" property="rentMoblie" />
+  <result column="lessee_name" jdbcType="VARCHAR" property="lesseeName" />
+  <result column="lessee_moblie" jdbcType="VARCHAR" property="lesseeMoblie" />
+  <result column="status" jdbcType="VARCHAR" property="status" />
+  <result column="auditor" jdbcType="TINYINT" property="auditor" />
+  <result column="description" jdbcType="VARCHAR" property="description" />
+  <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+  <result column="creater" jdbcType="BIGINT" property="creater" />
+  <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  <result column="modifier" jdbcType="BIGINT" property="modifier" />
+  <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  <result column="version" jdbcType="BIGINT" property="version" />
+</resultMap>
+  <resultMap id="AgreementBean" type="com.dongtong.clerk.bo.ClerkAgreementBO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sign_id" jdbcType="BIGINT" property="signId" />
+    <result column="clerk_id" jdbcType="BIGINT" property="clerkId" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+    <result column="shop_address" jdbcType="VARCHAR" property="shopAddress" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="rent_way" jdbcType="TINYINT" property="rentWay" />
+    <result column="rent" jdbcType="DECIMAL" property="rent" />
+    <result column="transfer_fee" jdbcType="DECIMAL" property="transferFee" />
+    <result column="rent_name" jdbcType="DECIMAL" property="rentName" />
+    <result column="rent_moblie" jdbcType="VARCHAR" property="rentMoblie" />
+    <result column="lessee_name" jdbcType="VARCHAR" property="lesseeName" />
+    <result column="lessee_moblie" jdbcType="VARCHAR" property="lesseeMoblie" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="auditor" jdbcType="TINYINT" property="auditor" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+
+    <collection property="agreementImg" ofType="com.dongtong.clerk.bo.AgreementImg">
+      <result column="img_url" property="imgUrl"/>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sign_id, clerk_id, customer_id, shop_id, shop_address, district_id, district_name, 
+    block_id, block_name, start_time, end_time, rent_way, rent, transfer_fee, rent_name, 
+    rent_moblie, lessee_name, lessee_moblie, status, auditor, description, is_delete, 
+    creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from clerk_agreement
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectBySignId" parameterType="java.lang.Long" resultMap="AgreementBean">
+    SELECT
+      a.`shop_address` shopAddress,
+      DATE_FORMAT( a.`start_time`,'%Y-%m-%d %H:%i:%s') startTime,
+      DATE_FORMAT(a.`end_time` ,'%Y-%m-%d %H:%i:%s')endTime,
+      a.`rent` rent,
+      a.`transfer_fee` transferFee,
+      a.`rent_name` rentName,
+      a.`rent_moblie` rentMobile,
+      a.`lessee_moblie` lesseeMobile,
+      a.`lessee_name` lesseeName,
+      a.`rent_way` rentWay,
+      a.district_id districtId,
+      a.district_name districtName,
+      a.block_id blockId,
+      a.block_name blockName,
+      b.`img_url` imgUrl ,
+      b.`img_index` imgIndex
+    FROM
+      clerk_agreement a
+      JOIN clerk_agreement_img b
+        ON a.`id` = b.`agreement_id` WHERE a.`sign_id`=#{signId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from clerk_agreement
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.clerk.domain.ClerkAgreement" useGeneratedKeys="true">
+    insert into clerk_agreement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="signId != null">
+        sign_id,
+      </if>
+      <if test="clerkId != null">
+        clerk_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="shopAddress != null">
+        shop_address,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="blockName != null">
+        block_name,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="rentWay != null">
+        rent_way,
+      </if>
+      <if test="rent != null">
+        rent,
+      </if>
+      <if test="transferFee != null">
+        transfer_fee,
+      </if>
+      <if test="rentName != null">
+        rent_name,
+      </if>
+      <if test="rentMoblie != null">
+        rent_moblie,
+      </if>
+      <if test="lesseeName != null">
+        lessee_name,
+      </if>
+      <if test="lesseeMoblie != null">
+        lessee_moblie,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="auditor != null">
+        auditor,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+        create_time,
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="signId != null">
+        #{signId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkId != null">
+        #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="shopAddress != null">
+        #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="blockName != null">
+        #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentWay != null">
+        #{rentWay,jdbcType=TINYINT},
+      </if>
+      <if test="rent != null">
+        #{rent,jdbcType=DECIMAL},
+      </if>
+      <if test="transferFee != null">
+        #{transferFee,jdbcType=DECIMAL},
+      </if>
+      <if test="rentName != null">
+        #{rentName,jdbcType=DECIMAL},
+      </if>
+      <if test="rentMoblie != null">
+        #{rentMoblie,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeName != null">
+        #{lesseeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeMoblie != null">
+        #{lesseeMoblie,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=TINYINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+        now(),
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.clerk.domain.ClerkAgreement" useGeneratedKeys="true">
+    insert into clerk_agreement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="signId != null">
+        sign_id,
+      </if>
+      <if test="clerkId != null">
+        clerk_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="shopAddress != null">
+        shop_address,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="blockName != null">
+        block_name,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="rentWay != null">
+        rent_way,
+      </if>
+      <if test="rent != null">
+        rent,
+      </if>
+      <if test="transferFee != null">
+        transfer_fee,
+      </if>
+      <if test="rentName != null">
+        rent_name,
+      </if>
+      <if test="rentMoblie != null">
+        rent_moblie,
+      </if>
+      <if test="lesseeName != null">
+        lessee_name,
+      </if>
+      <if test="lesseeMoblie != null">
+        lessee_moblie,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="auditor != null">
+        auditor,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="signId != null">
+        #{signId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkId != null">
+        #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="shopAddress != null">
+        #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="blockName != null">
+        #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentWay != null">
+        #{rentWay,jdbcType=TINYINT},
+      </if>
+      <if test="rent != null">
+        #{rent,jdbcType=DECIMAL},
+      </if>
+      <if test="transferFee != null">
+        #{transferFee,jdbcType=DECIMAL},
+      </if>
+      <if test="rentName != null">
+        #{rentName,jdbcType=DECIMAL},
+      </if>
+      <if test="rentMoblie != null">
+        #{rentMoblie,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeName != null">
+        #{lesseeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeMoblie != null">
+        #{lesseeMoblie,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=TINYINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.clerk.domain.ClerkAgreement">
+    update clerk_agreement
+    <set>
+      <if test="signId != null">
+        sign_id = #{signId,jdbcType=BIGINT},
+      </if>
+      <if test="clerkId != null">
+        clerk_id = #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="shopAddress != null">
+        shop_address = #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="blockName != null">
+        block_name = #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentWay != null">
+        rent_way = #{rentWay,jdbcType=TINYINT},
+      </if>
+      <if test="rent != null">
+        rent = #{rent,jdbcType=DECIMAL},
+      </if>
+      <if test="transferFee != null">
+        transfer_fee = #{transferFee,jdbcType=DECIMAL},
+      </if>
+      <if test="rentName != null">
+        rent_name = #{rentName,jdbcType=DECIMAL},
+      </if>
+      <if test="rentMoblie != null">
+        rent_moblie = #{rentMoblie,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeName != null">
+        lessee_name = #{lesseeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeMoblie != null">
+        lessee_moblie = #{lesseeMoblie,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=TINYINT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.clerk.domain.ClerkAgreement">
+    update clerk_agreement
+    set sign_id = #{signId,jdbcType=BIGINT},
+      clerk_id = #{clerkId,jdbcType=BIGINT},
+      customer_id = #{customerId,jdbcType=BIGINT},
+      shop_id = #{shopId,jdbcType=BIGINT},
+      shop_address = #{shopAddress,jdbcType=VARCHAR},
+      district_id = #{districtId,jdbcType=BIGINT},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      block_id = #{blockId,jdbcType=BIGINT},
+      block_name = #{blockName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      rent_way = #{rentWay,jdbcType=TINYINT},
+      rent = #{rent,jdbcType=DECIMAL},
+      transfer_fee = #{transferFee,jdbcType=DECIMAL},
+      rent_name = #{rentName,jdbcType=DECIMAL},
+      rent_moblie = #{rentMoblie,jdbcType=VARCHAR},
+      lessee_name = #{lesseeName,jdbcType=VARCHAR},
+      lessee_moblie = #{lesseeMoblie,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=TINYINT},
+      description = #{description,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

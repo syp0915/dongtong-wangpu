@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.clerk.dao.ClerkHintMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.clerk.domain.ClerkHint">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shop_address" jdbcType="VARCHAR" property="shopAddress" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+    <result column="linkman_name" jdbcType="VARCHAR" property="linkmanName" />
+    <result column="linkman_phone" jdbcType="VARCHAR" property="linkmanPhone" />
+    <result column="subscribe_time" jdbcType="TIMESTAMP" property="subscribeTime" />
+    <result column="issuer_id" jdbcType="BIGINT" property="issuerId" />
+    <result column="issuer_phone" jdbcType="VARCHAR" property="issuerPhone" />
+    <result column="issuer_type" jdbcType="TINYINT" property="issuerType" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="claim_time" jdbcType="TIMESTAMP" property="claimTime" />
+    <result column="issue_shop_time" jdbcType="TIMESTAMP" property="issueShopTime" />
+    <result column="discard_time" jdbcType="TIMESTAMP" property="discardTime" />
+    <result column="tag_id" jdbcType="TINYINT" property="tagId" />
+    <result column="discard_cause" jdbcType="VARCHAR" property="discardCause" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="hint_from" jdbcType="TINYINT" property="hintFrom" />
+    <result column="expand_clerk_id" jdbcType="BIGINT" property="expandClerkId" />
+    <result column="expand_clerk_name" jdbcType="VARCHAR" property="expandClerkName" />
+    <result column="trade_clerk_id" jdbcType="BIGINT" property="tradeClerkId" />
+    <result column="trade_clerk_name" jdbcType="VARCHAR" property="tradeClerkName" />
+    <result column="total_floor" jdbcType="INTEGER" property="totalFloor" />
+    <result column="floor" jdbcType="VARCHAR" property="floor" />
+    <result column="has_poster" jdbcType="TINYINT" property="hasPoster" />
+    <result column="shop_code" jdbcType="VARCHAR" property="shopCode" />
+    <result column="confirm_time" jdbcType="TIMESTAMP" property="confirmTime" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="addr_is_show" jdbcType="TINYINT" property="addrIsShow" />
+    <result column="is_show" jdbcType="TINYINT" property="isShow" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+
+  <resultMap id="hintResult4Map" type="com.dongtong.clerk.dto.ClerkHint4MapDTO">
+    <id column="id" jdbcType="BIGINT" property="clerkId" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+  </resultMap>
+  <resultMap id="HintStatisticsMap" type="com.dongtong.clerk.dto.ClerkHintStatisticsDTO">
+    <result column="all_hint_count" jdbcType="INTEGER" property="allHintCount" />
+    <result column="my_hint_count" jdbcType="INTEGER" property="myHintCount" />
+  </resultMap>
+  <resultMap id="hintResultMap" type="com.dongtong.clerk.dto.ClerkHintDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shop_address" jdbcType="VARCHAR" property="shopAddress" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+    <result column="linkman_name" jdbcType="VARCHAR" property="linkmanName" />
+    <result column="linkman_phone" jdbcType="VARCHAR" property="linkmanPhone" />
+    <result column="subscribe_time" jdbcType="TIMESTAMP" property="subscribeTime" />
+    <result column="issuer_id" jdbcType="BIGINT" property="issuerId" />
+    <result column="issuer_phone" jdbcType="VARCHAR" property="issuerPhone" />
+    <result column="issuer_type" jdbcType="TINYINT" property="issuerType" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="owner_name" jdbcType="BIGINT" property="ownerName" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="discard_cause" jdbcType="VARCHAR" property="discardCause" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="hint_from" jdbcType="TINYINT" property="hintFrom" />
+    <result column="expand_clerk_id" jdbcType="BIGINT" property="expandClerkId" />
+    <result column="expand_clerk_name" jdbcType="VARCHAR" property="expandClerkName" />
+    <result column="trade_clerk_id" jdbcType="BIGINT" property="tradeClerkId" />
+    <result column="trade_clerk_name" jdbcType="VARCHAR" property="tradeClerkName" />
+    <result column="total_floor" jdbcType="INTEGER" property="totalFloor" />
+    <result column="floor" jdbcType="VARCHAR" property="floor" />
+    <result column="has_poster" jdbcType="TINYINT" property="hasPoster" />
+    <result column="shop_code" jdbcType="VARCHAR" property="shopCode" />
+    <result column="addr_is_show" jdbcType="TINYINT" property="addrIsShow" />
+    <result column="is_show" jdbcType="TINYINT" property="isShow" />
+    <result column="expand_clerk_phone" jdbcType="VARCHAR" property="expandClerkPhone" />
+    <result column="trade_clerk_phone" jdbcType="VARCHAR" property="tradeClerkPhone" />
+  </resultMap>
+
+  <resultMap id="hintDetailResultMap" type="com.dongtong.clerk.dto.ClerkHintDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shop_address" jdbcType="VARCHAR" property="shopAddress" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+    <result column="linkman_name" jdbcType="VARCHAR" property="linkmanName" />
+    <result column="linkman_phone" jdbcType="VARCHAR" property="linkmanPhone" />
+    <result column="subscribe_time" jdbcType="TIMESTAMP" property="subscribeTime" />
+    <result column="issuer_id" jdbcType="BIGINT" property="issuerId" />
+    <result column="issuer_phone" jdbcType="VARCHAR" property="issuerPhone" />
+    <result column="issuer_type" jdbcType="TINYINT" property="issuerType" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="owner_name" jdbcType="BIGINT" property="ownerName" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="discard_cause" jdbcType="VARCHAR" property="discardCause" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="hint_from" jdbcType="TINYINT" property="hintFrom" />
+    <result column="expand_clerk_id" jdbcType="BIGINT" property="expandClerkId" />
+    <result column="expand_clerk_name" jdbcType="VARCHAR" property="expandClerkName" />
+    <result column="trade_clerk_id" jdbcType="BIGINT" property="tradeClerkId" />
+    <result column="trade_clerk_name" jdbcType="VARCHAR" property="tradeClerkName" />
+    <result column="total_floor" jdbcType="INTEGER" property="totalFloor" />
+    <result column="floor" jdbcType="VARCHAR" property="floor" />
+    <result column="has_poster" jdbcType="TINYINT" property="hasPoster" />
+    <result column="shop_code" jdbcType="VARCHAR" property="shopCode" />
+    <result column="addr_is_show" jdbcType="TINYINT" property="addrIsShow" />
+    <result column="is_show" jdbcType="TINYINT" property="isShow" />
+    <result column="expand_clerk_phone" jdbcType="VARCHAR" property="expandClerkPhone" />
+    <result column="trade_clerk_phone" jdbcType="VARCHAR" property="tradeClerkPhone" />
+    <result column="confirm_time" jdbcType="VARCHAR" property="confirmTime" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <collection property="shopImgList" column="id" javaType="ArrayList" select="selectShopImgList" />
+  </resultMap>
+
+  <resultMap id="ImgResultMap" type="com.dongtong.clerk.dto.ShopImgDTO">
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="img_index" jdbcType="INTEGER" property="imgIndex" />
+    <result column="is_cover" jdbcType="TINYINT" property="isCover" />
+  </resultMap>
+
+  <resultMap id="hintDetail4MapResultMap" type="com.dongtong.clerk.dto.ClerkHintDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shop_address" jdbcType="VARCHAR" property="shopAddress" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="owner_name" jdbcType="BIGINT" property="ownerName" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="expand_clerk_id" jdbcType="BIGINT" property="expandClerkId" />
+    <result column="expand_clerk_name" jdbcType="VARCHAR" property="expandClerkName" />
+    <result column="trade_clerk_id" jdbcType="BIGINT" property="tradeClerkId" />
+    <result column="trade_clerk_name" jdbcType="VARCHAR" property="tradeClerkName" />
+    <result column="expand_clerk_phone" jdbcType="VARCHAR" property="expandClerkPhone" />
+    <result column="trade_clerk_phone" jdbcType="VARCHAR" property="tradeClerkPhone" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, shop_address shopAddress, longitude, latitude, district_id, district_name, block_id, block_name,
+    linkman_name, linkman_phone,DATE_FORMAT(subscribe_time,'%Y-%m-%d %H:%i:%s'), issuer_id, issuer_phone, issuer_type,
+    owner_id, status, claim_time, issue_shop_time, discard_time, tag_id, discard_cause,remark,hint_from, expand_clerk_id,
+    expand_clerk_name, trade_clerk_id, trade_clerk_name,
+    total_floor, floor, has_poster, shop_code, confirm_time, check_time,is_show,addr_is_show,
+    creater, create_time, modifier, modify_time, version
+  </sql>
+
+  <select id="selectShopImgList" parameterType="java.lang.Long" resultMap="ImgResultMap">
+    select img_url,img_index,is_cover
+    from clerk_hint_img
+    where hint_id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from clerk_hint
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectClerkHintDetail" parameterType="com.dongtong.clerk.dto.ClerkHintDTO" resultMap="hintDetail4MapResultMap">
+    select ch.id, ch.shop_address,  ch.district_id, ch.district_name, ch.block_id, ch.block_name,
+    ch.issuer_type,
+    ch.owner_id, ifnull(c.real_name,"无") as owner_name,ch.status, ch.create_time,ch.longitude,ch.latitude,
+    expand_clerk_id,expand_clerk_name, trade_clerk_id, trade_clerk_name,
+    (select ec.phone from clerk ec where ec.id=ch.expand_clerk_id) as expand_clerk_phone,
+    (select tc.phone from clerk tc where tc.id=ch.trade_clerk_id) as trade_clerk_phone
+    from clerk_hint ch
+    LEFT JOIN clerk c on ch.owner_id=c.id
+    where ch.id=#{clerkId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：zhanghz
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from clerk_hint
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.clerk.domain.ClerkHint" useGeneratedKeys="true">
+    <!--
+    开发负责人：zhanghz
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into clerk_hint (id, shop_address, longitude,
+    latitude, district_id, district_name,
+    block_id, block_name, linkman_name,
+    linkman_phone, subscribe_time, issuer_id,
+    issuer_phone, issuer_type, owner_id,
+    status, claim_time, issue_shop_time,
+    discard_time, tag_id, discard_cause,
+    remark, hint_from, expand_clerk_id,
+    expand_clerk_name, trade_clerk_id, trade_clerk_name,
+    total_floor, floor, has_poster,
+    shop_code, confirm_time, check_time,is_show,addr_is_show,
+    creater, create_time, modifier,
+    modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{shopAddress,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR},
+    #{latitude,jdbcType=VARCHAR}, #{districtId,jdbcType=BIGINT}, #{districtName,jdbcType=VARCHAR},
+    #{blockId,jdbcType=BIGINT}, #{blockName,jdbcType=VARCHAR}, #{linkmanName,jdbcType=VARCHAR},
+    #{linkmanPhone,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=TIMESTAMP}, #{issuerId,jdbcType=BIGINT},
+    #{issuerPhone,jdbcType=VARCHAR}, #{issuerType,jdbcType=TINYINT}, #{ownerId,jdbcType=BIGINT},
+    #{status,jdbcType=TINYINT}, #{claimTime,jdbcType=TIMESTAMP}, #{issueShopTime,jdbcType=TIMESTAMP},
+    #{discardTime,jdbcType=TIMESTAMP}, #{tagId,jdbcType=TINYINT}, #{discardCause,jdbcType=VARCHAR},
+    #{remark,jdbcType=VARCHAR}, #{hintFrom,jdbcType=TINYINT}, #{expandClerkId,jdbcType=BIGINT},
+    #{expandClerkName,jdbcType=VARCHAR}, #{tradeClerkId,jdbcType=BIGINT}, #{tradeClerkName,jdbcType=VARCHAR},
+    #{totalFloor,jdbcType=INTEGER}, #{floor,jdbcType=VARCHAR}, #{hasPoster,jdbcType=TINYINT},
+    #{shopCode,jdbcType=VARCHAR}, #{confirmTime,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP},
+    #{isShow,jdbcType=TINYINT},#{addrIsShow,jdbcType=TINYINT},
+    #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT},
+    #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.clerk.domain.ClerkHint" useGeneratedKeys="true">
+    <!--
+    开发负责人：zhanghz
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into clerk_hint
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="shopAddress != null">
+        shop_address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="blockName != null">
+        block_name,
+      </if>
+      <if test="linkmanName != null">
+        linkman_name,
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone,
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time,
+      </if>
+      <if test="issuerId != null">
+        issuer_id,
+      </if>
+      <if test="issuerPhone != null">
+        issuer_phone,
+      </if>
+      <if test="issuerType != null">
+        issuer_type,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="claimTime != null">
+        claim_time,
+      </if>
+      <if test="issueShopTime != null">
+        issue_shop_time,
+      </if>
+      <if test="discardTime != null">
+        discard_time,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+      <if test="discardCause != null">
+        discard_cause,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="hintFrom != null">
+        hint_from,
+      </if>
+      <if test="expandClerkId != null">
+        expand_clerk_id,
+      </if>
+      <if test="expandClerkName != null">
+        expand_clerk_name,
+      </if>
+      <if test="tradeClerkId != null">
+        trade_clerk_id,
+      </if>
+      <if test="tradeClerkName != null">
+        trade_clerk_name,
+      </if>
+      <if test="totalFloor != null">
+        total_floor,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="hasPoster != null">
+        has_poster,
+      </if>
+      <if test="shopCode != null">
+        shop_code,
+      </if>
+      <if test="confirmTime != null">
+        confirm_time,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="addrIsShow != null">
+        addr_is_show,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="shopAddress != null">
+        #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="blockName != null">
+        #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null">
+        #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issuerId != null">
+        #{issuerId,jdbcType=BIGINT},
+      </if>
+      <if test="issuerPhone != null">
+        #{issuerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="issuerType != null">
+        #{issuerType,jdbcType=TINYINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="claimTime != null">
+        #{claimTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issueShopTime != null">
+        #{issueShopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discardTime != null">
+        #{discardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=TINYINT},
+      </if>
+      <if test="discardCause != null">
+        #{discardCause,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="hintFrom != null">
+        #{hintFrom,jdbcType=TINYINT},
+      </if>
+      <if test="expandClerkId != null">
+        #{expandClerkId,jdbcType=BIGINT},
+      </if>
+      <if test="expandClerkName != null">
+        #{expandClerkName,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeClerkId != null">
+        #{tradeClerkId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeClerkName != null">
+        #{tradeClerkName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFloor != null">
+        #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="hasPoster != null">
+        #{hasPoster,jdbcType=TINYINT},
+      </if>
+      <if test="shopCode != null">
+        #{shopCode,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmTime != null">
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addrIsShow != null">
+        #{addrIsShow,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.clerk.domain.ClerkHint">
+    <!--
+    开发负责人：zhanghz
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update clerk_hint
+    <set>
+      <if test="shopAddress != null">
+        shop_address = #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="blockName != null">
+        block_name = #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null">
+        linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issuerId != null">
+        issuer_id = #{issuerId,jdbcType=BIGINT},
+      </if>
+      <if test="issuerPhone != null">
+        issuer_phone = #{issuerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="issuerType != null">
+        issuer_type = #{issuerType,jdbcType=TINYINT},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="claimTime != null">
+        claim_time = #{claimTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issueShopTime != null">
+        issue_shop_time = #{issueShopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discardTime != null">
+        discard_time = #{discardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=TINYINT},
+      </if>
+      <if test="discardCause != null">
+        discard_cause = #{discardCause,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="hintFrom != null">
+        hint_from = #{hintFrom,jdbcType=TINYINT},
+      </if>
+      <if test="expandClerkId != null">
+        expand_clerk_id = #{expandClerkId,jdbcType=BIGINT},
+      </if>
+      <if test="expandClerkName != null">
+        expand_clerk_name = #{expandClerkName,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeClerkId != null">
+        trade_clerk_id = #{tradeClerkId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeClerkName != null">
+        trade_clerk_name = #{tradeClerkName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFloor != null">
+        total_floor = #{totalFloor,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="hasPoster != null">
+        has_poster = #{hasPoster,jdbcType=TINYINT},
+      </if>
+      <if test="shopCode != null">
+        shop_code = #{shopCode,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmTime != null">
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.clerk.domain.ClerkHint">
+    <!--
+    开发负责人：zhanghz
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update clerk_hint
+    set shop_address = #{shopAddress,jdbcType=VARCHAR},
+    longitude = #{longitude,jdbcType=VARCHAR},
+    latitude = #{latitude,jdbcType=VARCHAR},
+    district_id = #{districtId,jdbcType=BIGINT},
+    district_name = #{districtName,jdbcType=VARCHAR},
+    block_id = #{blockId,jdbcType=BIGINT},
+    block_name = #{blockName,jdbcType=VARCHAR},
+    linkman_name = #{linkmanName,jdbcType=VARCHAR},
+    linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+    subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+    issuer_id = #{issuerId,jdbcType=BIGINT},
+    issuer_phone = #{issuerPhone,jdbcType=VARCHAR},
+    issuer_type = #{issuerType,jdbcType=TINYINT},
+    owner_id = #{ownerId,jdbcType=BIGINT},
+    status = #{status,jdbcType=TINYINT},
+    claim_time = #{claimTime,jdbcType=TIMESTAMP},
+    issue_shop_time = #{issueShopTime,jdbcType=TIMESTAMP},
+    discard_time = #{discardTime,jdbcType=TIMESTAMP},
+    tag_id = #{tagId,jdbcType=TINYINT},
+    discard_cause = #{discardCause,jdbcType=VARCHAR},
+    remark = #{remark,jdbcType=VARCHAR},
+    hint_from = #{hintFrom,jdbcType=TINYINT},
+    expand_clerk_id = #{expandClerkId,jdbcType=BIGINT},
+    expand_clerk_name = #{expandClerkName,jdbcType=VARCHAR},
+    trade_clerk_id = #{tradeClerkId,jdbcType=BIGINT},
+    trade_clerk_name = #{tradeClerkName,jdbcType=VARCHAR},
+    total_floor = #{totalFloor,jdbcType=INTEGER},
+    floor = #{floor,jdbcType=VARCHAR},
+    has_poster = #{hasPoster,jdbcType=TINYINT},
+    shop_code = #{shopCode,jdbcType=VARCHAR},
+    confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+    check_time = #{checkTime,jdbcType=TIMESTAMP},
+    is_show = #{isShow,jdbcType=TINYINT},
+    addr_is_show = #{addrIsShow,jdbcType=TINYINT},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultType="com.dongtong.clerk.bo.ClerkHintBO">
+    select
+     id,
+    shop_address shopAddress,
+    DATE_FORMAT( subscribe_time,'%Y-%m-%d %H:%i:%s') subscribeTime,
+    STATUS,
+    issuer_id issuerId,
+    linkman_name linkmanName,
+    linkman_phone linkmanPhone,
+     owner_id ownerId,
+       tag_id tagId,
+    discard_cause discardCause
+    from clerk_hint
+    where owner_id= #{clerkHint.ownerId}
+    order by status,CASE WHEN STATUS='1' THEN subscribe_time END  ASC,
+    CASE WHEN STATUS!='1' THEN subscribe_time END  DESC
+  </select>
+
+  <select id="selectNeedByPage" resultType="com.dongtong.clerk.bo.ClerkHintBO">
+    select
+    id,
+    shop_address shopAddress,
+    DATE_FORMAT( subscribe_time,'%Y-%m-%d %H:%i:%s') subscribeTime,
+    STATUS,
+    linkman_name linkmanName,
+    linkman_phone linkmanPhone,
+     owner_id ownerId,
+     issuer_id issuerId,
+     tag_id tagId,
+    discard_cause discardCause
+    from clerk_hint
+    where owner_id= #{clerkHint.ownerId}
+    and status='1'
+    order by subscribe_time
+  </select>
+  <select id="getDeadTimeCount" parameterType="com.dongtong.clerk.dto.ClerkHintDTO" resultType="integer">
+    SELECT COUNT(*) FROM clerk_hint WHERE owner_id=#{ownerId} AND <![CDATA[ subscribe_time<now()]]> and status=1
+  </select>
+
+  <select id="selectSchedule" resultType="com.dongtong.clerk.bo.ClerkHintBO">
+    select
+    id,
+    owner_id ownerId,
+    shop_address shopAddress,
+    DATE_FORMAT( subscribe_time,'%Y-%m-%d %H:%i:%s') subscribeTime,
+    STATUS
+    from clerk_hint
+    where STATUS= 1
+    order by create_time desc
+  </select>
+
+  <select id="selectById" resultMap="hintDetailResultMap">
+    select ch.id, ch.shop_address,  ch.district_id, ch.district_name, ch.block_id, ch.block_name,
+    ch.linkman_name, ch.linkman_phone, ch.issuer_id, ch.issuer_phone, ch.issuer_type,
+    ch.owner_id, ifnull(c.real_name,"无") as owner_name,ch.status, ch.discard_cause,ch.create_time,ch.longitude,ch.latitude,
+    hint_from, expand_clerk_id,
+    expand_clerk_name, trade_clerk_id, trade_clerk_name,
+    total_floor, floor, has_poster, shop_code, confirm_time, check_time,is_show,addr_is_show,
+    (select ec.phone from clerk ec where ec.id=ch.expand_clerk_id) as expand_clerk_phone,
+    (select tc.phone from clerk tc where tc.id=ch.trade_clerk_id) as trade_clerk_phone
+    from clerk_hint ch
+    LEFT JOIN clerk c on ch.owner_id=c.id
+    where ch.id=#{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectClerkHintList" resultMap="hintResultMap">
+    select ch.id, ch.shop_address,  ch.district_id, ch.district_name, ch.block_id, ch.block_name,
+    ch.linkman_name, ch.linkman_phone,
+    ch.issuer_id, ch.issuer_phone, ch.issuer_type,expand_clerk_id,
+    expand_clerk_name, trade_clerk_id, trade_clerk_name,
+    ch.owner_id, ifnull(c.real_name,"无") as owner_name,ch.status, ch.discard_cause,ch.is_show,
+    ch.addr_is_show,ch.create_time
+    from clerk_hint ch
+    LEFT JOIN clerk c on ch.owner_id=c.id
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+      <if test="query.ownerId !=null ">
+        ch.owner_id = #{query.ownerId}
+      </if>
+      <if test="query.expandClerkId !=null ">
+        ch.expand_clerk_id = #{query.expandClerkId}
+      </if>
+      <if test="query.tradeClerkId !=null ">
+        ch.trade_clerk_id = #{query.tradeClerkId}
+      </if>
+      <if test="query.areaId != null and query.areaId != '' ">
+        AND ch.district_id = #{query.areaId, jdbcType=INTEGER}
+      </if>
+      <if test="query.blockId != null and query.blockId != '' ">
+        AND ch.block_id = #{query.blockId, jdbcType=INTEGER}
+      </if>
+      <if test="query.statusList!=null and query.statusList.size!=0">
+        AND ch.status in
+        <foreach collection="query.statusList" item="status"
+                 index="index" open="(" close=")" separator=",">
+          #{status}
+        </foreach>
+      </if>
+      <if test="query.fromList!=null and query.fromList.size!=0">
+        AND ch.hint_from in
+        <foreach collection="query.fromList" item="hintFrom"
+                 index="index" open="(" close=")" separator=",">
+          #{hintFrom}
+        </foreach>
+      </if>
+    </trim>
+    order by ${query.orderColumn}
+  </select>
+  <select id="selectClerkHint4MapList" resultMap="hintResult4Map">
+    SELECT id,latitude,longitude,create_time FROM clerk_hint
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+      <if test="ownerId !=null ">
+        owner_id = #{ownerId}
+      </if>
+      <if test="blockId !=null ">
+        AND block_id=#{blockId, jdbcType=BIGINT}
+      </if>
+      <if test="maxLon != null and maxLon != '' and minLon != null and minLon != '' ">
+        AND longitude>=#{minLon, jdbcType=VARCHAR} and longitude &lt;=#{maxLon, jdbcType=VARCHAR}
+      </if>
+      <if test="maxLat != null and maxLat != '' and minLat != null and minLat != '' ">
+        AND latitude>=#{minLat, jdbcType=VARCHAR} and latitude &lt;=#{maxLat, jdbcType=VARCHAR}
+      </if>
+      <if test="statusList!=null and statusList.size!=0">
+        AND status in
+        <foreach collection="statusList" item="status"
+                 index="index" open="(" close=")" separator=",">
+          #{status}
+        </foreach>
+      </if>
+      <if test="hintFromList!=null and hintFromList.size!=0">
+        AND hint_from in
+        <foreach collection="hintFromList" item="from"
+                 index="index" open="(" close=")" separator=",">
+          #{from}
+        </foreach>
+      </if>
+    </trim>
+  </select>
+  <select id="statisticsHintNum" resultMap="HintStatisticsMap" parameterType="hashmap">
+    select (select count(1) from clerk_hint) as all_hint_count
+    <if test="userId!=null">
+      ,(select count(1) from clerk_hint
+      where expand_clerk_id=#{userId, jdbcType=BIGINT} or trade_clerk_id=#{userId, jdbcType=BIGINT}) as my_hint_count
+    </if>
+    <if test="userId==null">
+      ,0 as my_hint_count
+    </if>
+     from dual;
+  </select>
+
+  <select id="queryHintListByPage" resultType="com.dongtong.clerk.dto.ClerkHintList">
+      SELECT ch.id AS id, ch.shop_address AS address, ch.claim_time AS claimTime,ch.status As status,DATE_FORMAT(cs.meet_time,'%Y-%m-%d %H:%i:%s') AS scheduleDate,
+      (CASE WHEN TIMESTAMPDIFF(SECOND,cs.meet_time,NOW())&lt;=0 THEN 11 ELSE cs.meet_time END) out_meet_time,
+      (CASE IFNULL(cs.status,99) WHEN 99 THEN 3  WHEN 0 THEN 1 WHEN 1 THEN 4 WHEN 2 THEN 5 ELSE 111 END) all_status
+      FROM clerk_hint ch
+        LEFT JOIN (select * from (select * from customer_schedule order by create_time desc)cc group by biz_id)cs ON ch.id = cs.biz_id
+    <if test="page.query != null">
+        <if test="page.query.type != null and page.query.type == 1">
+          AND cs.type = 1
+        </if>
+        <if test="page.query.type != null and page.query.type == 2">
+          and cs.type = 2
+        </if>
+      WHERE 1=1
+        <if test="page.query.type != null and page.query.type == 1">
+          AND ch.expand_clerk_id = #{page.query.id} and ch.status = 1
+        </if>
+        <if test="page.query.type != null and page.query.type == 2">
+          and ch.trade_clerk_id=#{page.query.id} and ch.status = 3
+        </if>
+    </if>
+      ORDER BY out_meet_time DESC,cs.meet_time ASC,all_status ASC,ch.claim_time asc
+  </select>
+
+  <select id="getHintDetailInfo" resultType="com.dongtong.clerk.dto.ClerkHintDetailDTO">
+    SELECT ch.id AS id, ch.shop_address AS address, ch.status AS status, ch.linkman_name AS customerName, ch.linkman_phone AS customerPhone
+    , DATE_FORMAT(cs.meet_time,'%Y-%m-%d %H:%i:%s') AS scheduleDate, chi.img_url AS coverImgUrl,ch.owner_id As ownerId,cs.id As scheduleIds,
+    DATE_FORMAT(hot.over_time,'%m月%d日 %H:%i') As overTimeStr,DATE_FORMAT(hot.over_time,'%Y-%m-%d %H:%i:%s') As overTime,DATE_FORMAT(hot.over_time_remind,'%Y-%m-%d %H:%i:%s') As overTimeRemind
+    FROM clerk_hint ch
+    LEFT JOIN (select * from (select * from customer_schedule order by create_time desc)cc group by biz_id)cs  ON ch.id = cs.biz_id
+    LEFT JOIN clerk_hint_img chi ON chi.hint_id = ch.id AND chi.is_cover = 1
+    LEFT JOIN (select * from (select * from hint_over_time order by create_time desc)hh group by hint_id)hot on hot.hint_id = ch.id and hot.status=0
+    WHERE ch.id = #{id}
+  </select>
+
+  <select id="queryViewListByPage" resultType="com.dongtong.clerk.dto.ClerkScheduleListDTO">
+    SELECT DISTINCT v.id,s.address,DATE_FORMAT(cs.meet_time,'%Y-%m-%d %H:%i:%s') scheduleDate,v.status,(CASE WHEN TIMESTAMPDIFF(SECOND,cs.meet_time,NOW())&lt;=0 THEN 11 ELSE cs.meet_time END) out_meet_time,
+    (CASE IFNULL(cs.status,99) WHEN 99 THEN 3  WHEN 0 THEN 1 WHEN 1 THEN 4 WHEN 2 THEN 5 ELSE 111 END) all_status FROM customer_visit_shop v
+    INNER JOIN shop s ON v.`shop_id` = s.`id`
+    LEFT JOIN customer_schedule cs ON v.id = cs.biz_id AND cs.type IN (3,4)
+    WHERE v.`clerk_id` = #{query.id}
+    ORDER BY v.status ASC,out_meet_time DESC,meet_time ASC,all_status ASC
+  </select>
+
+  <select id="querySignListByPage" resultType="com.dongtong.clerk.dto.ClerkScheduleListDTO">
+    SELECT DISTINCT shop_address address,s.id,DATE_FORMAT(sc.meet_time,'%Y-%m-%d %H:%i:%s') scheduleDate,
+    (CASE IFNULL(s.status,0) WHEN 0 THEN 0 WHEN 1 THEN 1 WHEN 2 THEN 1 ELSE 2 END ) STATUS,
+    (CASE s.status WHEN 2 THEN 1 ELSE 0 END) contract
+    ,(CASE WHEN TIMESTAMPDIFF(SECOND,sc.meet_time,NOW())&lt;=0 THEN 11 ELSE sc.meet_time END) out_meet_time
+    ,(CASE IFNULL(sc.status,99) WHEN 99 THEN 3  WHEN 0 THEN 1 WHEN 1 THEN 4 WHEN 2 THEN 5 ELSE 111 END) all_status  FROM customer_sign s
+    LEFT JOIN customer_schedule sc ON s.id = sc.biz_id  AND sc.type IN (5,6)
+    WHERE s.clerk_id = #{query.id}
+    ORDER BY IFNULL(s.status,0) ASC,out_meet_time DESC,meet_time ASC,all_status ASC
+  </select>
+
+  <resultMap id="ViewResultMap" type="com.dongtong.clerk.dto.ClerkSignOrViewDetailDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="customerName" jdbcType="BIGINT" property="customerName" />
+    <result column="customerPhone" jdbcType="VARCHAR" property="customerPhone" />
+    <result column="landlordPhone" jdbcType="BIGINT" property="landlordPhone" />
+    <result column="landlord" jdbcType="VARCHAR" property="landlord" />
+    <result column="scheduleDate" jdbcType="VARCHAR" property="scheduleDate" />
+    <result column="contract" jdbcType="VARCHAR" property="contractStatus" />
+    <result column="clerkId" jdbcType="VARCHAR" property="clerkId" />
+    <result column="tagId" jdbcType="VARCHAR" property="tagId" />
+    <result column="coverImgUrl" jdbcType="VARCHAR" property="coverImgUrl" />
+    <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="scheduleIds" jdbcType="VARCHAR" property="scheduleIds" />
+    <collection property="remarkList" column="id" ofType="com.dongtong.clerk.dto.RemarkDTO" javaType="ArrayList"
+                select="selectViewRemarkListById">
+      <id property="id" column="id"/>
+      <id property="content" column="content"/>
+      <id property="createDate" column="createDate"/>
+    </collection>
+  </resultMap>
+
+  <select id="selectViewRemarkListById" parameterType="java.lang.Long" resultType="com.dongtong.clerk.dto.RemarkDTO">
+    select
+    id, content, DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') as createDate
+    from clerk_remark
+    where data_id = #{id} and type = 1
+  </select>
+
+  <select id="queryViewDetail" resultMap="ViewResultMap">
+    SELECT v.id,s.`address`,v.`status`,v.linkman_name customerName,v.linkman_phone customerPhone,s.contact_tel landlordPhone,s.contacter landlord,
+    (SELECT DATE_FORMAT(MAX(cs.meet_time),'%Y-%m-%d %H:%i:%s') FROM customer_schedule cs WHERE cs.biz_id = v.id AND cs.type IN (3,4)) scheduleDate,
+    (SELECT GROUP_CONCAT(cs.id) FROM customer_schedule cs WHERE cs.biz_id = v.id AND cs.type IN (3,4)) scheduleIds,
+    ci.`img_url` coverImgUrl,v.tag_id tagId,v.clerk_id clerkId,s.id shop_id
+    FROM customer_visit_shop v
+    LEFT JOIN shop s ON v.`shop_id` = s.`id`
+    LEFT JOIN  shop_img ci ON v.`shop_id`=ci.`shop_id` AND ci.`is_cover`=1
+    WHERE v.id=#{id,jdbcType=BIGINT} limit 1
+  </select>
+
+  <resultMap id="SignResultMap" type="com.dongtong.clerk.dto.ClerkSignOrViewDetailDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="customerName" jdbcType="BIGINT" property="customerName" />
+    <result column="customerPhone" jdbcType="VARCHAR" property="customerPhone" />
+    <result column="landlordPhone" jdbcType="BIGINT" property="landlordPhone" />
+    <result column="landlord" jdbcType="VARCHAR" property="landlord" />
+    <result column="scheduleDate" jdbcType="VARCHAR" property="scheduleDate" />
+    <result column="contract" jdbcType="VARCHAR" property="contractStatus" />
+    <result column="clerkId" jdbcType="VARCHAR" property="clerkId" />
+    <result column="tagId" jdbcType="VARCHAR" property="tagId" />
+    <result column="coverImgUrl" jdbcType="VARCHAR" property="coverImgUrl" />
+    <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="scheduleIds" jdbcType="VARCHAR" property="scheduleIds" />
+    <result column="district_id" jdbcType="VARCHAR" property="districtId" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="block_id" jdbcType="VARCHAR" property="blockId" />
+    <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+    <collection property="remarkList" column="id" ofType="com.dongtong.clerk.dto.RemarkDTO" javaType="ArrayList"
+                select="selectSignRemarkListById">
+      <id property="id" column="id"/>
+      <id property="content" column="content"/>
+      <id property="createDate" column="createDate"/>
+    </collection>
+  </resultMap>
+
+  <select id="selectSignRemarkListById" parameterType="java.lang.Long" resultType="com.dongtong.clerk.dto.RemarkDTO">
+    select
+    id, content, DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') as createDate
+    from clerk_remark
+    where data_id = #{id} and type = 2
+  </select>
+
+  <select id="querySignDetail" resultMap="SignResultMap">
+    SELECT s.id,s.`shop_address` address,s.contacter customerName,s.contact_mobile customerPhone
+    ,shop.contact_tel landlordPhone,shop.contacter landlord,(CASE s.status WHEN 2 THEN 1 ELSE 0 END) contract,
+    (CASE s.status WHEN 0 THEN 0 WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 3 THEN 1 ELSE 2 END) STATUS,
+    (SELECT DATE_FORMAT(MAX(cs.meet_time),'%Y-%m-%d %H:%i:%s') FROM customer_schedule cs WHERE cs.biz_id = s.id AND cs.type IN (5,6) LIMIT 1) scheduleDate,
+    (SELECT GROUP_CONCAT(cs.id) FROM customer_schedule cs WHERE cs.biz_id = s.id AND cs.type IN (5,6)) scheduleIds,
+    c.`img_url` coverImgUrl,s.tag_id tagId,s.`clerk_id` clerkId,s.shop_id,shop.district_id,shop.district_name,shop.block_id,shop.block_name FROM customer_sign s
+    LEFT JOIN shop ON s.`shop_id` = shop.`id`
+    LEFT JOIN shop_img c ON s.`shop_id`=c.`shop_id`
+     AND c.`is_cover`=1 WHERE s.id = #{id,jdbcType=BIGINT} LIMIT 1
+  </select>
+</mapper>

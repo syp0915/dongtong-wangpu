@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.topic.dao.ContentMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.topic.domain.Content">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="BIT" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="source_id" jdbcType="INTEGER" property="sourceId" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="is_top" jdbcType="BIT" property="isTop" />
+    <result column="timer" jdbcType="TIMESTAMP" property="timer" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="good_count" jdbcType="INTEGER" property="goodCount" />
+    <result column="bad_count" jdbcType="INTEGER" property="badCount" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, title, image, source_id, publish_time, status, is_top, timer, view_count, 
+    good_count, bad_count, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from content
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from content
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.topic.domain.Content" useGeneratedKeys="true">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into content (id, type, title, image, 
+      source_id, publish_time, status, 
+      is_top, timer, view_count, 
+      good_count, bad_count, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=BIT}, #{title,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{sourceId,jdbcType=INTEGER}, #{publishTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT}, 
+      #{isTop,jdbcType=BIT}, #{timer,jdbcType=TIMESTAMP}, #{viewCount,jdbcType=INTEGER}, 
+      #{goodCount,jdbcType=INTEGER}, #{badCount,jdbcType=INTEGER}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.topic.domain.Content" useGeneratedKeys="true">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="sourceId != null">
+        source_id,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isTop != null">
+        is_top,
+      </if>
+      <if test="timer != null">
+        timer,
+      </if>
+      <if test="viewCount != null">
+        view_count,
+      </if>
+      <if test="goodCount != null">
+        good_count,
+      </if>
+      <if test="badCount != null">
+        bad_count,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null">
+        #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="isTop != null">
+        #{isTop,jdbcType=BIT},
+      </if>
+      <if test="timer != null">
+        #{timer,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodCount != null">
+        #{goodCount,jdbcType=INTEGER},
+      </if>
+      <if test="badCount != null">
+        #{badCount,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.topic.domain.Content">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update content
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null">
+        source_id = #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="isTop != null">
+        is_top = #{isTop,jdbcType=BIT},
+      </if>
+      <if test="timer != null">
+        timer = #{timer,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viewCount != null">
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodCount != null">
+        good_count = #{goodCount,jdbcType=INTEGER},
+      </if>
+      <if test="badCount != null">
+        bad_count = #{badCount,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.topic.domain.Content">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update content
+    set type = #{type,jdbcType=BIT},
+      title = #{title,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      source_id = #{sourceId,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      timer = #{timer,jdbcType=TIMESTAMP},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      good_count = #{goodCount,jdbcType=INTEGER},
+      bad_count = #{badCount,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" /> 
+    from content
+    order by create_time desc 
+  </select>
+
+  <resultMap id="ContentListResultMap" type="com.dongtong.topic.dto.resp.ContentListRespDTO">
+    <id column="id" jdbcType="BIGINT" property="contentId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="kind" jdbcType="BIT" property="kind" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="date_time" jdbcType="VARCHAR" property="dateTime" />
+  </resultMap>
+  <select id="selectContentList" resultMap="ContentListResultMap" parameterType="com.dongtong.topic.query.ContentListQuery">
+    SELECT con.id, con.image, con.title, con.view_count, cso.source_name AS source, cte.text AS content,
+      CASE con.is_top WHEN 1 THEN 1 ELSE 0 END AS kind,
+      CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,con.publish_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,con.publish_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(con.publish_time,'%Y-%m-%d')
+              END
+          END
+      END AS date_time
+    FROM content_text cte
+    LEFT JOIN content con ON con.id = cte.content_id
+    LEFT JOIN content_source cso ON cso.id = con.source_id AND cso.content_type = con.type
+    WHERE con.type = #{query.contentType,jdbcType=BIT} AND (now() > con.timer OR con.timer IS NULL) AND con.status = 2
+    ORDER BY kind DESC ,(kind * CASE WHEN settop_time IS NULL THEN 0 ELSE settop_time END) DESC,con.publish_time DESC
+  </select>
+  <select id="selectContentListByTagId" resultMap="ContentListResultMap" parameterType="com.dongtong.topic.query.ContentListQuery">
+    SELECT con.id, con.image, con.title, con.view_count, cso.source_name AS source, cte.text AS content,
+     CASE con.is_top WHEN 1 THEN 1 ELSE 0 END AS kind,
+     CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,con.publish_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,con.publish_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(con.publish_time,'%Y-%m-%d')
+              END
+          END
+      END AS date_time
+    FROM content_text cte
+    LEFT JOIN content con ON con.id = cte.content_id
+    LEFT JOIN content_source cso ON cso.id = con.source_id AND cso.content_type = con.type
+    LEFT JOIN content_relation_tags cra ON cra.content_id=con.id
+    WHERE cra.tag_id = #{query.tagId,jdbcType=BIGINT} AND con.type = #{query.contentType,jdbcType=BIT} AND (now() > con.timer OR con.timer IS NULL) AND con.status = 2
+    ORDER BY kind DESC ,(kind * CASE WHEN settop_time IS NULL THEN 0 ELSE settop_time END) DESC,con.publish_time DESC
+  </select>
+
+  <resultMap id="ContentDetailResultMap" type="com.dongtong.topic.dto.resp.ContentDetailRespDTO">
+    <id column="id" jdbcType="BIGINT" property="contentId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="kind" jdbcType="BIT" property="kind" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="good_count" jdbcType="INTEGER" property="goodCount" />
+    <result column="bad_count" jdbcType="INTEGER" property="badCount" />
+    <result column="date_time" jdbcType="VARCHAR" property="dateTime" />
+  </resultMap>
+  <select id="selectContentDetailById" resultMap="ContentDetailResultMap" parameterType="com.dongtong.topic.dto.req.ContentDetailReqDTO">
+    SELECT con.id, con.image, con.title, con.view_count, cso.source_name AS source, cte.text AS content,
+     CASE con.is_top WHEN 1 THEN 1 ELSE 0 END AS kind, con.good_count, con.bad_count,
+     CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,con.publish_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,con.publish_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(con.publish_time,'%Y-%m-%d')
+              END
+          END
+      END AS date_time
+    FROM content_text cte
+    LEFT JOIN content con ON con.id = cte.content_id
+    LEFT JOIN content_source cso ON cso.id = con.source_id AND cso.content_type = con.type
+    WHERE con.id = #{contentId,jdbcType=BIGINT} AND (now() > con.timer OR con.timer IS NULL) AND con.status = 2
+  </select>
+
+  <update id="updateViewCount" parameterType="com.dongtong.topic.domain.Content">
+    UPDATE content SET view_count = view_count + 1, modifier = 1, modify_time = now(), version = version+1
+    WHERE id = #{id,jdbcType=BIGINT} AND (now() > timer OR timer IS NULL) AND status = 2
+  </update>
+  <update id="updateGoodCount" parameterType="com.dongtong.topic.domain.Content">
+    UPDATE content SET good_count = good_count + 1, modifier = 1, modify_time = now(), version = version+1
+    WHERE id = #{id,jdbcType=BIGINT} AND (now() > timer OR timer IS NULL) AND status = 2
+  </update>
+  <update id="updateBadCount" parameterType="com.dongtong.topic.domain.Content">
+    UPDATE content SET bad_count = bad_count + 1, modifier = 1, modify_time = now(), version = version+1
+    WHERE id = #{id,jdbcType=BIGINT} AND (now() > timer OR timer IS NULL) AND status = 2
+  </update>
+
+  <select id="selectGuideList" parameterType="com.dongtong.topic.query.ContentGuideListQuery" resultType="com.dongtong.topic.dto.resp.ContentGuideListRespDTO">
+    SELECT con.id AS contentId, con.image AS image, con.title AS title, cte.text AS content,
+      CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,con.publish_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,con.publish_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(con.publish_time,'%Y-%m-%d')
+              END
+          END
+      END AS dateTime
+    FROM content con
+    LEFT JOIN content_text cte ON cte.content_id = con.id
+    WHERE con.type = #{query.contentType,jdbcType=BIT} AND (now() > con.timer OR con.timer IS NULL) AND con.status = 2
+    ORDER BY is_top DESC ,(is_top * CASE WHEN settop_time IS NULL THEN 0 ELSE settop_time END) DESC,con.publish_time DESC
+  </select>
+  <select id="selectHomePageGuideList" parameterType="com.dongtong.topic.query.ContentGuideListQuery" resultType="com.dongtong.topic.dto.resp.HomePageGuideListRespDTO">
+    SELECT con.id AS contentId, con.image AS image, con.title AS title
+    FROM content con
+    WHERE con.type = #{query.contentType,jdbcType=BIT} AND (now() > con.timer OR con.timer IS NULL) AND con.status = 2
+    ORDER BY con.is_top DESC ,(con.is_top * CASE WHEN con.settop_time IS NULL THEN 0 ELSE con.settop_time END) DESC,con.publish_time DESC
+  </select>
+  <select id="selectGuideDetail" parameterType="com.dongtong.topic.dto.req.ContentGuideDetailReqDTO" resultType="com.dongtong.topic.dto.resp.ContentGuideDetailRespDTO">
+    SELECT con.id AS contentId, con.image AS image, con.title AS title, cte.text AS content,
+      CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,con.publish_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(con.publish_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,con.publish_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(con.publish_time,'%Y-%m-%d')
+              END
+          END
+      END AS dateTime
+    FROM content con
+    LEFT JOIN content_text cte ON cte.content_id = con.id
+    WHERE con.id = #{contentId,jdbcType=BIT} AND (now() > con.timer OR con.timer IS NULL) AND con.status = 2
+  </select>
+  <select id="selectShopListByContent" resultType="com.dongtong.topic.dto.resp.ShopListRespDTO" parameterType="java.lang.Long">
+    SELECT shop_id AS shopId, recommend_word AS recommendWord FROM content_relation_shop WHERE content_id = #{contentId,jdbcType=BIT}
+  </select>
+</mapper>

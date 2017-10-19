@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.topic.dao.TopicCommentMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.topic.domain.TopicComment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="business_id" jdbcType="BIGINT" property="businessId" />
+    <result column="commentator_id" jdbcType="BIGINT" property="commentatorId" />
+    <result column="commentator_type" jdbcType="TINYINT" property="commentatorType" />
+    <result column="parent_comment_id" jdbcType="INTEGER" property="parentId" />
+    <result column="is_reply" jdbcType="BIT" property="isReply" />
+    <result column="is_del" jdbcType="BIT" property="isDel" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dongtong.topic.domain.TopicComment">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, business_id, commentator_id, commentator_type, parent_comment_id, is_reply, is_del,
+    creater, create_time, modifier, modify_time, version
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from topic_comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from topic_comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.topic.domain.TopicComment" useGeneratedKeys="true">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into topic_comment (id, business_id, commentator_id,
+    commentator_type, parent_comment_id, is_reply,
+    is_del, creater, create_time,
+    modifier, modify_time, version,
+    content)
+    values (#{id,jdbcType=BIGINT}, #{businessId,jdbcType=BIGINT}, #{commentatorId,jdbcType=BIGINT},
+    #{commentatorType,jdbcType=TINYINT}, #{parentId,jdbcType=INTEGER}, #{isReply,jdbcType=BIT},
+    0, #{creater,jdbcType=BIGINT}, now(),
+    #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0,
+    #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.topic.domain.TopicComment" useGeneratedKeys="true">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into topic_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="commentatorId != null">
+        commentator_id,
+      </if>
+      <if test="commentatorType != null">
+        commentator_type,
+      </if>
+      <if test="parentId != null">
+        parent_comment_id,
+      </if>
+      <if test="isReply != null">
+        is_reply,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="commentatorId != null">
+        #{commentatorId,jdbcType=BIGINT},
+      </if>
+      <if test="commentatorType != null">
+        #{commentatorType,jdbcType=TINYINT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="isReply != null">
+        #{isReply,jdbcType=BIT},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=BIT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.topic.domain.TopicComment">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update topic_comment
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="commentatorId != null">
+        commentator_id = #{commentatorId,jdbcType=BIGINT},
+      </if>
+      <if test="commentatorType != null">
+        commentator_type = #{commentatorType,jdbcType=TINYINT},
+      </if>
+      <if test="parentId != null">
+        parent_comment_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="isReply != null">
+        is_reply = #{isReply,jdbcType=BIT},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dongtong.topic.domain.TopicComment">
+    <!--
+    开发负责人：chen xiushen
+    是否有缓存：无
+    -->
+    update topic_comment
+    set business_id = #{businessId,jdbcType=BIGINT},
+    commentator_id = #{commentatorId,jdbcType=BIGINT},
+    commentator_type = #{commentatorType,jdbcType=TINYINT},
+    parent_comment_id = #{parentId,jdbcType=INTEGER},
+    is_reply = #{isReply,jdbcType=BIT},
+    is_del = #{isDel,jdbcType=BIT},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+    version = #{version,jdbcType=BIGINT},
+    content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.topic.domain.TopicComment">
+    <!--
+    开发负责人：chen xiushen
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update topic_comment
+    set business_id = #{businessId,jdbcType=BIGINT},
+    commentator_id = #{commentatorId,jdbcType=BIGINT},
+    commentator_type = #{commentatorType,jdbcType=TINYINT},
+    parent_comment_id = #{parentId,jdbcType=INTEGER},
+    is_reply = #{isReply,jdbcType=BIT},
+    is_del = #{isDel,jdbcType=BIT},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from topic_comment
+    order by create_time desc
+  </select>
+  <resultMap id="tpicCommentDetailMap" type="com.dongtong.topic.dto.TopicCommentDetailDTO">
+    <result column="commentator_id" jdbcType="BIGINT" property="commentatorId" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPicture" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="VARCHAR" property="dateTime" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="parent_comment_id" jdbcType="INTEGER" property="parentId" />
+    <result column="parent_nick_name" jdbcType="VARCHAR" property="parentNickName" />
+    <result column="is_reply" jdbcType="BIT" property="isReply" />
+  </resultMap>
+  <select id="selectByBusinessId" parameterType="com.dongtong.topic.query.TopicCommentDetailQuery" resultMap="tpicCommentDetailMap">
+      SELECT * FROM (SELECT t.id,t.commentator_id,c.head_portrait,c.nick_name,t.content,parent.nick_name AS parent_nick_name,t.is_reply,t.parent_comment_id,
+      CASE WHEN (t.commentator_id = #{query.userId,jdbcType=BIGINT} and t.commentator_type = #{query.userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END isOwn,
+      CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(t.create_time,'%Y-%m-%d')
+              END
+          END
+      END AS create_time,t.create_time AS sort_time
+      FROM  topic_comment t
+      LEFT JOIN customer c ON t.commentator_id = c.id
+      LEFT JOIN topic_comment tparent ON tparent.id = t.parent_comment_id
+      LEFT JOIN customer parent ON tparent.commentator_id = parent.id
+      WHERE t.business_id = #{query.topicId,jdbcType=BIGINT} AND t.commentator_type = 0 AND t.is_del = 0
+      UNION ALL
+      SELECT t.id,t.commentator_id,c.avatar AS head_portrait,c.name AS nick_name,t.content,parent.name AS parent_nick_name,t.is_reply,t.parent_comment_id,
+      CASE WHEN (t.commentator_id = #{query.userId,jdbcType=BIGINT} and t.commentator_type = #{query.userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END isOwn,
+      CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(t.create_time,'%Y-%m-%d')
+              END
+          END
+      END AS create_time,t.create_time AS sort_time
+      FROM  topic_comment t
+      LEFT JOIN pretend_user c ON t.commentator_id = c.id
+      LEFT JOIN topic_comment tparent ON tparent.id = t.parent_comment_id
+      LEFT JOIN pretend_user parent ON tparent.commentator_id = parent.id
+      WHERE t.business_id = #{query.topicId,jdbcType=BIGINT} AND t.commentator_type = 1  AND t.is_del = 0) a
+      ORDER BY sort_time DESC
+  </select>
+  <select id="selectCountByBusinessId" parameterType="java.lang.Long" resultType="java.lang.Integer" >
+    SELECT COUNT(*) FROM (SELECT t.id,t.commentator_id,INSERT(c.phone, 4, 4, '****') AS phone,c.real_name,c.head_portrait,t.content,DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') create_time
+    FROM  topic_comment t,customer c
+    WHERE t.commentator_id = c.id AND t.commentator_type = 0 and t.business_id = #{businessId,jdbcType=BIGINT} AND t.is_del = 0
+    UNION ALL
+    SELECT t.id,t.commentator_id,INSERT(c.phone, 4, 4, '****') AS phone,c.real_name,c.head_portrait,t.content,DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') create_time
+    FROM  topic_comment t,clerk c
+    WHERE t.commentator_id = c.id AND t.commentator_type = 1 and t.business_id = #{businessId,jdbcType=BIGINT} AND t.is_del = 0) a
+  </select>
+  <update id="deleteById" parameterType="com.dongtong.topic.dto.TopicCommentDTO">
+    update topic_comment
+    set is_del = 1,
+     modifier = #{operator,jdbcType=BIGINT},modify_time = now(),
+     version = version+1
+    where id = #{commentId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectCommentDetailById" parameterType="com.dongtong.topic.query.TopicCommentDetailQuery" resultMap="tpicCommentDetailMap">
+    SELECT * FROM (
+      SELECT t.id,t.commentator_id,c.head_portrait,c.nick_name,t.content,parent.nick_name AS parent_nick_name,t.is_reply,t.parent_comment_id,
+        CASE WHEN (t.commentator_id = #{userId,jdbcType=BIGINT} and t.commentator_type = #{userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END isOwn,
+        CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+          THEN
+            '刚刚'
+          ELSE
+            CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+              THEN
+                CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+              ELSE
+                DATE_FORMAT(t.create_time,'%Y-%m-%d')
+              END
+          END
+        END AS create_time,t.create_time AS sort_time
+      FROM  topic_comment t
+      LEFT JOIN customer c ON t.commentator_id = c.id
+      LEFT JOIN topic_comment tparent ON tparent.id = t.parent_comment_id
+      LEFT JOIN customer parent ON tparent.commentator_id = parent.id
+      WHERE t.id = #{commentId,jdbcType=BIGINT} AND t.commentator_type = 0 AND t.is_del = 0
+    UNION ALL
+      SELECT t.id,t.commentator_id,c.avatar AS head_portrait,c.name AS nick_name,t.content,parent.name AS parent_nick_name,t.is_reply,t.parent_comment_id,
+        CASE WHEN (t.commentator_id = #{userId,jdbcType=BIGINT} and t.commentator_type = #{userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END isOwn,
+        CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+          THEN
+            '刚刚'
+          ELSE
+            CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+              THEN
+                CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+              ELSE
+                DATE_FORMAT(t.create_time,'%Y-%m-%d')
+            END
+          END
+        END AS create_time,t.create_time AS sort_time
+      FROM  topic_comment t
+      LEFT JOIN pretend_user c ON t.commentator_id = c.id
+      LEFT JOIN topic_comment tparent ON tparent.id = t.parent_comment_id
+      LEFT JOIN pretend_user parent ON tparent.commentator_id = parent.id
+      WHERE t.id = #{commentId,jdbcType=BIGINT} AND t.commentator_type = 1  AND t.is_del = 0) a
+    ORDER BY sort_time DESC
+  </select>
+</mapper>

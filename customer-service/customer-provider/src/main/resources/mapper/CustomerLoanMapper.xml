@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.customer.dao.CustomerLoanMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.customer.domain.CustomerLoan">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="loan_limit" jdbcType="VARCHAR" property="loanLimit" />
+    <result column="loan_maturity" jdbcType="VARCHAR" property="loanMaturity" />
+    <result column="maturity_unit" jdbcType="VARCHAR" property="maturityUnit" />
+    <result column="linkman_name" jdbcType="VARCHAR" property="linkmanName" />
+    <result column="linkman_phone" jdbcType="VARCHAR" property="linkmanPhone" />
+    <result column="subscribe_time" jdbcType="TIMESTAMP" property="subscribeTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_id, loan_limit, loan_maturity, maturity_unit, linkman_name, linkman_phone, 
+    subscribe_time, status, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customer_loan
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer_loan
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.customer.domain.CustomerLoan" useGeneratedKeys="true">
+    insert into customer_loan (id, customer_id, loan_limit, 
+      loan_maturity, maturity_unit, linkman_name, 
+      linkman_phone, subscribe_time, status, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=VARCHAR}, #{loanLimit,jdbcType=VARCHAR}, 
+      #{loanMaturity,jdbcType=VARCHAR}, #{maturityUnit,jdbcType=VARCHAR}, #{linkmanName,jdbcType=VARCHAR}, 
+      #{linkmanPhone,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.customer.domain.CustomerLoan" useGeneratedKeys="true">
+    insert into customer_loan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="loanLimit != null">
+        loan_limit,
+      </if>
+      <if test="loanMaturity != null">
+        loan_maturity,
+      </if>
+      <if test="maturityUnit != null">
+        maturity_unit,
+      </if>
+      <if test="linkmanName != null">
+        linkman_name,
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone,
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanLimit != null">
+        #{loanLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="loanMaturity != null">
+        #{loanMaturity,jdbcType=VARCHAR},
+      </if>
+      <if test="maturityUnit != null">
+        #{maturityUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null">
+        #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.customer.domain.CustomerLoan">
+    update customer_loan
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanLimit != null">
+        loan_limit = #{loanLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="loanMaturity != null">
+        loan_maturity = #{loanMaturity,jdbcType=VARCHAR},
+      </if>
+      <if test="maturityUnit != null">
+        maturity_unit = #{maturityUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null">
+        linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.customer.domain.CustomerLoan">
+    update customer_loan
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      loan_limit = #{loanLimit,jdbcType=VARCHAR},
+      loan_maturity = #{loanMaturity,jdbcType=VARCHAR},
+      maturity_unit = #{maturityUnit,jdbcType=VARCHAR},
+      linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+      subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  
+  <select id="loanList" resultType="com.dongtong.customer.dto.LoadDTO">
+    SELECT
+    loan_limit AS loanLimit,
+    loan_maturity AS loanMaturity,
+    status AS status,
+    DATE_FORMAT(subscribe_time, '%Y-%m-%d %H:%i:%s') AS subscribeTime,
+    DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS applyTime
+    FROM
+    customer_loan
+    where customer_id=#{query}
+    order by create_time DESC
+  </select>
+  
+  <select id="queryLastLoad" resultType="com.dongtong.customer.dto.LoadDTO" parameterType="java.lang.Long">
+    SELECT
+    loan_limit AS loanLimit,
+    loan_maturity AS loanMaturity,
+    status AS status,
+    DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS applyTime
+FROM
+    customer_loan
+    where customer_id=#{query.customerId}
+    order by create_time DESC limit 1
+  </select>
+</mapper>

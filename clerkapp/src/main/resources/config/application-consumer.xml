@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <!-- 定义使用服务的的消费者bean -->
+    <bean id="referenceBean" abstract="true" class="com.alibaba.dubbo.config.spring.ReferenceBean">
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="consumer" ref="consumerConfig"/>
+        <property name="version" value="${consumer.default_version}"/>
+        <property name="monitor" ref="monitorConfig"/>
+    </bean>
+
+    <bean id="consumerConfig" class="com.alibaba.dubbo.config.ConsumerConfig">
+        <property name="check" value="${consume.service_check}"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.TagService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.AreaService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.IndustryService"/>
+    </bean>
+
+    <!-- 商铺相关接口 -->
+    <bean parent="referenceBean">
+        <property name="timeout" value="10000"/>
+        <property name="interface" value="com.dongtong.shop.service.ShopService"/>
+        <property name="methods">
+            <list>
+                <ref bean="updateShopSiteConfig"/>
+                <ref bean="shopCodeGenerateConfig"/>
+            </list>
+        </property>
+    </bean>
+    <!-- 修改旺铺地址信息设置超时时间-->
+    <bean id="updateShopSiteConfig" class="com.alibaba.dubbo.config.MethodConfig">
+        <property name="name" value="updateShopSite"/>
+        <property name="timeout" value="20000"></property>
+        <property name="retries" value="0"/>
+    </bean>
+    <!-- 修改旺铺地址信息设置超时时间-->
+    <bean id="shopCodeGenerateConfig" class="com.alibaba.dubbo.config.MethodConfig">
+        <property name="name" value="shopCodeGenerate"/>
+        <property name="timeout" value="20000"></property>
+        <property name="retries" value="0"/>
+    </bean>
+    <!-- 商铺地图接口 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.shop.service.ShopMapService"/>
+    </bean>
+
+    <!-- 商铺跟进接口 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.shop.service.ShopFollowService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.clerk.service.ClerkService"/>
+    </bean>
+    <!-- 生意圈相关接口 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.topic.service.TopicService"/>
+    </bean>
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.topic.service.TopicCommentService"/>
+    </bean>
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.topic.service.TopicLikeService"/>
+    </bean>
+
+    <!-- 历史榜单接口 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.HistoryRankingService"/>
+    </bean>
+
+    <!-- 榜单接口 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.RankingService"/>
+    </bean>
+    <!-- 线索接口 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.clerk.service.ClerkHintService"/>
+        <property name="methods" >
+            <list>
+                <ref bean="publishHintConfig"/>
+                <ref bean="updatePositionInfoConfig" />
+            </list>
+        </property>
+    </bean>
+    <bean id="publishHintConfig" class="com.alibaba.dubbo.config.MethodConfig">
+        <property name="name" value="publishHintByClerk"/>
+        <property name="timeout" value="20000"></property>
+        <property name="retries" value="0"/>
+    </bean>
+
+    <bean id="updatePositionInfoConfig" class="com.alibaba.dubbo.config.MethodConfig">
+        <property name="name" value="updatePositionInfo"/>
+        <property name="timeout" value="20000"></property>
+        <property name="retries" value="0"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.NotificationService"/>
+    </bean>
+
+    <!-- 商铺代办任务接口 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.clerk.service.ClerkTaskService"/>
+    </bean>
+    <!-- 用户签到-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.clerk.service.CustomerSignInService"/>
+    </bean>
+
+    <!--约看接口-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.customer.service.CustomerVisitShopService"/>
+    </bean>
+    <!--签约接口-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.customer.service.CustomerSignSerivce"/>
+    </bean>
+    <!--合同接口-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.clerk.service.ClerkAgreementService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.SmsService"/>
+        <property name="methods">
+            <list>
+                <ref bean="sendSmsVerifyCodeConfig"/>
+            </list>
+        </property>
+        <property name="timeout" value="10000"/>
+    </bean>
+
+    <bean id="sendSmsVerifyCodeConfig" class="com.alibaba.dubbo.config.MethodConfig">
+        <property name="name" value="sendSmsVerifyCode" />
+        <property name="timeout" value="30000"/>
+        <property name="retries" value="0"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.NoticePushService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="timeout" value="20000"/>
+        <property name="interface" value="com.dongtong.basic.service.AliyunService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.customer.service.CustomerService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.customer.service.ScheduleService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.AppService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.clerk.service.ClerkHintFollowService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.clerk.service.ClerkRemarkService"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.dongtong.basic.service.BaseShopNumberService"/>
+    </bean>
+
+</beans>

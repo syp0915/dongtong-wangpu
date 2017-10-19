@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.clerk.dao.ClerkHintFlowLogMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.clerk.domain.ClerkHintFlowLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="hint_id" jdbcType="BIGINT" property="hintId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="clerk_id" jdbcType="BIGINT" property="clerkId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, hint_id, type, clerk_id, remark, creater, create_time, modifier, modify_time, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：zhanghz
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from clerk_hint_flow_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：zhanghz
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from clerk_hint_flow_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.clerk.domain.ClerkHintFlowLog" useGeneratedKeys="true">
+    <!--
+    开发负责人：zhanghz
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into clerk_hint_flow_log (id, hint_id, type, 
+      clerk_id, remark, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{hintId,jdbcType=BIGINT}, #{type,jdbcType=TINYINT},
+      #{clerkId,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.clerk.domain.ClerkHintFlowLog" useGeneratedKeys="true">
+    <!--
+    开发负责人：zhanghz
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into clerk_hint_flow_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="hintId != null">
+        hint_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="clerkId != null">
+        clerk_id,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="hintId != null">
+        #{hintId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="clerkId != null">
+        #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.clerk.domain.ClerkHintFlowLog">
+    <!--
+    开发负责人：zhanghz
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update clerk_hint_flow_log
+    <set>
+      <if test="hintId != null">
+        hint_id = #{hintId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="clerkId != null">
+        clerk_id = #{clerkId,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.clerk.domain.ClerkHintFlowLog">
+    <!--
+    开发负责人：zhanghz
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update clerk_hint_flow_log
+    set hint_id = #{hintId,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      clerk_id = #{clerkId,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" /> 
+    from clerk_hint_flow_log
+    order by create_time desc 
+  </select>
+  <select id="selectClaimLog" resultMap="BaseResultMap" parameterType="com.dongtong.clerk.domain.ClerkHintFlowLog">
+    select
+    <include refid="Base_Column_List" />
+    from clerk_hint_flow_log
+    where clerk_id=#{clerkId,jdbcType=BIGINT}
+    and hint_id=#{hintId,jdbcType=BIGINT}
+    and `type`=#{type,jdbcType=TINYINT}
+  </select>
+</mapper>

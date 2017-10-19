@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:reg="http://www.dangdang.com/schema/ddframe/reg"
+       xmlns:job="http://www.dangdang.com/schema/ddframe/job"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+
+                            http://www.dangdang.com/schema/ddframe/reg
+                        http://www.dangdang.com/schema/ddframe/reg/reg.xsd
+                        http://www.dangdang.com/schema/ddframe/job
+                        http://www.dangdang.com/schema/ddframe/job/job.xsd"
+       default-autowire="byName" default-lazy-init="false">
+
+    <!-- 配置作业注册中心 -->
+    <reg:zookeeper id="scheduledCenter"
+                   server-lists="${elastic.job.registry.zks}"
+                   namespace="${elastic.job.registry.namespace}"
+                   base-sleep-time-milliseconds="${base.sleep.time.milliseconds}"
+                   max-sleep-time-milliseconds="${max.sleep.time.milliseconds}"
+                   max-retries="${elastic.job.max-retries}" />
+
+    <!-- 日程推送 job -->
+    <job:simple id="pushSchedule"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.push.schedule.description}"
+                class="${simple.job.push.schedule.class}"
+                cron="${simple.job.push.schedule.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <!-- 周榜推送 job -->
+    <job:simple id="pushWeek"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.push.week.description}"
+                class="${simple.job.push.week.schedule.class}"
+                cron="${simple.job.push.week.schedule.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <!-- 月榜推送 job -->
+    <job:simple id="pushMonth"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.push.month.schedule.description}"
+                class="${simple.job.push.month.schedule.class}"
+                cron="${simple.job.push.month.schedule.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <!-- 任务到时推送 job -->
+    <job:simple id="pushArrivalTime"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.push.arrival.time.schedule.description}"
+                class="${simple.job.push.arrival.time.schedule.class}"
+                cron="${simple.job.push.arrival.time.schedule.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <!-- 任务到时推送 job -->
+    <job:simple id="pushWeekHistory"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.push.clerk.history.week.description}"
+                class="${simple.job.push.clerk.history.week.schedule.class}"
+                cron="${simple.job.push.clerk.history.week.schedule.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <job:simple id="expireCustomerSchedule"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.expire.customer.schedule.description}"
+                class="${simple.job.expire.customer.schedule.class}"
+                cron="${simple.job.expire.customer.schedule.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <!-- 积分计算 job -->
+    <job:simple id="shopScore"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.shop.score.schedule.description}"
+                class="${simple.job.shop.score.schedule.class}"
+                cron="${simple.job.shop.score.schedule.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <job:simple id="overTimeUpdate"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.expire.hint.overtime.description}"
+                class="${simple.job.expire.hint.overtime.class}"
+                cron="${simple.job.expire.hint.overtime.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <job:simple id="pushHintOverTime"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.push.hint.overtime.description}"
+                class="${simple.job.push.hint.overtime.class}"
+                cron="${simple.job.push.hint.overtime.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+
+    <job:simple id="shopFollowOverTime"
+                registry-center-ref="scheduledCenter"
+                description="${simple.job.push.shop.follow.overtime.description}"
+                class="${simple.job.push.shop.follow.overtime.class}"
+                cron="${simple.job.push.shop.follow.overtime.cron}"
+                sharding-total-count="${elastic.job.sharding.total.count}"/>
+</beans>

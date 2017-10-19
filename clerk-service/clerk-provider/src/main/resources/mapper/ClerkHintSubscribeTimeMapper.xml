@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.clerk.dao.ClerkHintSubscribeTimeMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.clerk.domain.ClerkHintSubscribeTime">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="hint_id" jdbcType="BIGINT" property="hintId" />
+    <result column="subscribe_time" jdbcType="TIMESTAMP" property="subscribeTime" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, hint_id, subscribe_time, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from clerk_hint_subscribe_time
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from clerk_hint_subscribe_time
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.clerk.domain.ClerkHintSubscribeTime" useGeneratedKeys="true">
+    insert into clerk_hint_subscribe_time (id, hint_id, subscribe_time, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{hintId,jdbcType=BIGINT}, #{subscribeTime,jdbcType=TIMESTAMP}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.clerk.domain.ClerkHintSubscribeTime" useGeneratedKeys="true">
+    insert into clerk_hint_subscribe_time
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="hintId != null">
+        hint_id,
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="hintId != null">
+        #{hintId,jdbcType=BIGINT},
+      </if>
+      <if test="subscribeTime != null">
+        #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.clerk.domain.ClerkHintSubscribeTime">
+    update clerk_hint_subscribe_time
+    <set>
+      <if test="hintId != null">
+        hint_id = #{hintId,jdbcType=BIGINT},
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.clerk.domain.ClerkHintSubscribeTime">
+    update clerk_hint_subscribe_time
+    set hint_id = #{hintId,jdbcType=BIGINT},
+      subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

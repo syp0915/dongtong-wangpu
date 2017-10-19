@@ -1,0 +1,322 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.shfc.framework</groupId>
+    <artifactId>shfc-parent</artifactId>
+    <version>1.5-SNAPSHOT</version>
+    <relativePath></relativePath>
+  </parent>
+
+  <groupId>com.dongtong.shop</groupId>
+  <artifactId>clerkapp</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>clerkapp Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <springfox.version>2.4.0</springfox.version>
+    <jackson.version>2.6.5</jackson.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.shfc.framework</groupId>
+      <artifactId>shfc-common</artifactId>
+      <version>2.1-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.dongtong.shop</groupId>
+      <artifactId>shop-api</artifactId>
+      <version>1.2-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.dongtong.shop</groupId>
+      <artifactId>clerk-api</artifactId>
+      <version>1.2-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.dongtong.shop</groupId>
+      <artifactId>basic-api</artifactId>
+      <version>1.2-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.dongtong.shop</groupId>
+      <artifactId>topic-api</artifactId>
+      <version>1.2-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.shfc.framework</groupId>
+      <artifactId>redis-utils</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.shfc.framework</groupId>
+      <artifactId>shfc-dubbo</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.restdocs</groupId>
+      <artifactId>spring-restdocs-mockmvc</artifactId>
+      <version>1.1.1.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${springfox.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${springfox.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-staticdocs</artifactId>
+      <version>${springfox.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.9.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jodd</groupId>
+      <artifactId>jodd</artifactId>
+      <version>3.3.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.java</groupId>
+      <artifactId>sonar-jacoco-listeners</artifactId>
+      <version>3.8</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.dongtong.shop</groupId>
+      <artifactId>customer-api</artifactId>
+      <version>1.2-SNAPSHOT</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.0.1.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>com.baidu.disconf</groupId>
+      <artifactId>disconf-client</artifactId>
+      <version>2.6.36</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.zookeeper</groupId>
+          <artifactId>zookeeper</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <properties>
+        <env>dev</env>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+    <profile>
+      <id>test</id>
+      <properties>
+        <env>test</env>
+      </properties>
+    </profile>
+    <profile>
+      <id>prd</id>
+      <properties>
+        <env>prd</env>
+      </properties>
+    </profile>
+    <profile>
+      <id>pre01</id>
+      <properties>
+        <env>pre01</env>
+      </properties>
+    </profile>
+    <profile>
+      <id>pre02</id>
+      <properties>
+        <env>pre02</env>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>coverage-per-test</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <!-- Minimal supported version is 2.4 -->
+            <version>2.4</version>
+            <configuration>
+              <properties>
+                <property>
+                  <name>listener</name>
+                  <value>org.sonar.java.jacoco.JUnitListener</value>
+                </property>
+              </properties>
+              <skip>true</skip>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <webResources>
+            <resource>
+              <directory>deploy/${env}/</directory>
+              <targetPath>WEB-INF/classes</targetPath>
+              <filtering>true</filtering>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.2</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

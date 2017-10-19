@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.topic.dao.TopicMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.topic.domain.Topic">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="publisher_id" jdbcType="BIGINT" property="publisherId" />
+    <result column="publisher_type" jdbcType="TINYINT" property="publisherType" />
+    <result column="publish_type" jdbcType="TINYINT" property="publishType" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="kind" jdbcType="TINYINT" property="kind" />
+    <result column="hyperlink_url" jdbcType="VARCHAR" property="hyperlinkUrl" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+    <result column="kind_time" jdbcType="TIMESTAMP" property="kindTime" />
+    <result column="timer" jdbcType="TIMESTAMP" property="timer" />
+    <result column="third_article_id" jdbcType="BIGINT" property="thirdArticleId" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dongtong.topic.domain.Topic">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, publisher_id, publisher_type, publish_type, title, kind, hyperlink_url,third_article_id,
+    is_del, creater, create_time, modifier, modify_time, version,kind_time,timer
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from topic
+    where id = #{id,jdbcType=BIGINT} and is_del = '0'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from topic
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.topic.domain.Topic" useGeneratedKeys="true">
+    insert into topic (id, publisher_id, publisher_type, 
+      publish_type, title,
+      kind, hyperlink_url, is_del, 
+      creater, create_time, modifier, 
+      modify_time, version, content,timer
+      )
+    values (#{id,jdbcType=BIGINT}, #{publisherId,jdbcType=BIGINT}, #{publisherType,jdbcType=TINYINT}, 
+      #{publishType,jdbcType=TINYINT}, #{title,jdbcType=VARCHAR},
+      #{kind,jdbcType=TINYINT}, #{hyperlinkUrl,jdbcType=VARCHAR}, #{isDel,jdbcType=TINYINT}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0, #{content,jdbcType=LONGVARCHAR},
+      now()
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.topic.domain.Topic" useGeneratedKeys="true">
+    insert into topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="publisherId != null">
+        publisher_id,
+      </if>
+      <if test="publisherType != null">
+        publisher_type,
+      </if>
+      <if test="publishType != null">
+        publish_type,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="kind != null">
+        kind,
+      </if>
+      <if test="hyperlinkUrl != null">
+        hyperlink_url,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="timer != null">
+        timer
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="publisherId != null">
+        #{publisherId,jdbcType=BIGINT},
+      </if>
+      <if test="publisherType != null">
+        #{publisherType,jdbcType=TINYINT},
+      </if>
+      <if test="publishType != null">
+        #{publishType,jdbcType=TINYINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null">
+        #{kind,jdbcType=TINYINT},
+      </if>
+      <if test="hyperlinkUrl != null">
+        #{hyperlinkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="timer != null">
+        #{timer,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.topic.domain.Topic">
+    update topic
+    <set>
+      <if test="publisherId != null">
+        publisher_id = #{publisherId,jdbcType=BIGINT},
+      </if>
+      <if test="publisherType != null">
+        publisher_type = #{publisherType,jdbcType=TINYINT},
+      </if>
+      <if test="publishType != null">
+        publish_type = #{publishType,jdbcType=TINYINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null">
+        kind = #{kind,jdbcType=TINYINT},
+      </if>
+      <if test="hyperlinkUrl != null">
+        hyperlink_url = #{hyperlinkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="timer != null">
+        timer = #{timer,jdbcType=TIMESTAMP}
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dongtong.topic.domain.Topic">
+    update topic
+    set publisher_id = #{publisherId,jdbcType=BIGINT},
+      publisher_type = #{publisherType,jdbcType=TINYINT},
+      publish_type = #{publishType,jdbcType=TINYINT},
+      title = #{title,jdbcType=VARCHAR},
+      kind = #{kind,jdbcType=TINYINT},
+      hyperlink_url = #{hyperlinkUrl,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      timer = #{timer,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.topic.domain.Topic">
+    update topic
+    set publisher_id = #{publisherId,jdbcType=BIGINT},
+      publisher_type = #{publisherType,jdbcType=TINYINT},
+      publish_type = #{publishType,jdbcType=TINYINT},
+      title = #{title,jdbcType=VARCHAR},
+      kind = #{kind,jdbcType=TINYINT},
+      hyperlink_url = #{hyperlinkUrl,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1,
+      content = #{content,jdbcType=LONGVARCHAR},
+      timer = #{timer,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateTopicKindById" parameterType="com.dongtong.topic.domain.Topic">
+    update topic
+    set
+    kind = #{kind,jdbcType=TINYINT},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    kind_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and is_del = '0' and version = #{version,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteTopicById" parameterType="com.dongtong.topic.domain.Topic">
+    update topic
+    set
+    is_del = #{isDel,jdbcType=TINYINT},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </delete>
+  <resultMap id="topicListMap" type="com.dongtong.topic.domain.TopicList">
+    <id column="id" jdbcType="BIGINT" property="topicId" />
+    <result column="publisher_id" jdbcType="BIGINT" property="publisherId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="create_time" jdbcType="VARCHAR" property="dateTime" />
+    <result column="publish_type" jdbcType="VARCHAR" property="publishType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="canBeDelete" jdbcType="TINYINT" property="canBeDelete" />
+    <result column="praiseNumber" jdbcType="VARCHAR" property="praiseNumber" />
+    <result column="likeStatus" jdbcType="TINYINT" property="likeStatus" />
+    <result column="commentNumber" jdbcType="VARCHAR" property="commentNumber" />
+    <result column="hyperlink_url" jdbcType="VARCHAR" property="url" />
+    <result column="publisher_type" jdbcType="TINYINT" property="publisherType" />
+    <result column="kind" jdbcType="TINYINT" property="kind" />
+    <result column="third_article_id" jdbcType="BIGINT" property="thirdArticleId" />
+    <collection property="imgList" column="id" ofType="com.dongtong.topic.dto.TopicImgRelDTO" javaType="ArrayList"
+                select="selectImageListByTopicId">
+      <id property="topicId" column="topicId"/>
+      <id property="imgUrl" column="imgUrl"/>
+      <id property="imgIndex" column="imgIndex"/>
+    </collection>
+  </resultMap>
+
+  <select id="selectImageListByTopicId" parameterType="java.lang.Long" resultType="com.dongtong.topic.dto.TopicImgRelDTO">
+    select
+     topic_id as topicId, img_url as imgUrl, img_index as imgIndex
+    from topic_img_rel
+    where topic_id = #{id}
+  </select>
+
+
+  <select id="selectTopicListByUserId" resultMap="topicListMap" parameterType="com.dongtong.topic.query.MyTopicListQuery">
+    SELECT t.id,publisher_id, t.publisher_type,third_article_id,
+    CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+      THEN
+        '刚刚'
+      ELSE
+        CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+          THEN
+            CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+          ELSE
+            CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+              THEN
+                CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+              ELSE
+                DATE_FORMAT(t.create_time,'%Y-%m-%d')
+            END
+        END
+    END AS create_time,
+    t.title,t.content,t.publish_type,t.hyperlink_url,kind,
+    (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id) praiseNumber,(SELECT COUNT(*) FROM topic_comment b WHERE b.business_id = t.id AND is_del = 0) commentNumber,
+    CASE (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id AND like_id=#{query.userId,jdbcType=BIGINT} AND like_type = #{query.userType,jdbcType=TINYINT}) WHEN 0 THEN 0 ELSE 1 END likeStatus,
+    CASE WHEN publisher_id = #{query.userId,jdbcType=BIGINT} AND publisher_type = #{query.userType,jdbcType=TINYINT} THEN 1 ELSE 0 END canBeDelete
+    FROM topic t
+    WHERE is_del = 0 AND now() > t.timer
+    <if test="query.userId != null">
+       AND t.publisher_id = #{query.userId,jdbcType=BIGINT} AND t.publisher_type=#{query.userType,jdbcType=TINYINT}
+    </if>
+    ORDER BY kind DESC ,(kind * CASE WHEN kind_time IS NULL THEN 0 ELSE kind_time END) DESC,t.create_time DESC
+  </select>
+
+  <select id="selectTopicList" resultMap="topicListMap" parameterType="com.dongtong.topic.query.TopicListQuery">
+    SELECT t.id,publisher_id, t.publisher_type,third_article_id,
+    CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+      THEN
+        '刚刚'
+      ELSE
+        CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+          THEN
+            CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+          ELSE
+            CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+              THEN
+                CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+              ELSE
+                DATE_FORMAT(t.create_time,'%Y-%m-%d')
+            END
+        END
+    END AS create_time,
+    t.title,t.content,t.publish_type,t.hyperlink_url,kind,
+    (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id) praiseNumber,(SELECT COUNT(*) FROM topic_comment b WHERE b.business_id = t.id AND is_del = 0) commentNumber,
+    CASE (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id AND like_id=#{query.userId,jdbcType=BIGINT} AND like_type = #{query.userType,jdbcType=TINYINT}) WHEN 0 THEN 0 ELSE 1 END likeStatus,
+    CASE WHEN (publisher_id = #{query.userId,jdbcType=BIGINT} AND publisher_type = #{query.userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END canBeDelete
+    FROM topic t
+    WHERE is_del = 0 AND now() > t.timer
+    ORDER BY kind DESC ,(kind * CASE WHEN kind_time IS NULL THEN 0 ELSE kind_time END) DESC
+    <if test="query.type == 0 ">
+      ,t.create_time DESC
+    </if>
+    <if test="query.type == 1 ">
+      ,(praiseNumber+commentNumber) DESC
+    </if>
+  </select>
+
+  <resultMap id="topicDetailMap" type="com.dongtong.topic.dto.TopicDetailDTO">
+    <result column="publisher_id" jdbcType="BIGINT" property="publisherId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="create_time" jdbcType="VARCHAR" property="dateTime" />
+    <result column="publish_type" jdbcType="VARCHAR" property="publishType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="canBeDelete" jdbcType="TINYINT" property="canBeDelete" />
+    <result column="praiseNumber" jdbcType="VARCHAR" property="praiseNumber" />
+    <result column="likeStatus" jdbcType="TINYINT" property="likeStatus" />
+    <result column="commentNumber" jdbcType="VARCHAR" property="commentNumber" />
+    <result column="kind" jdbcType="TINYINT" property="kind" />
+    <collection property="imgList" column="id" ofType="com.dongtong.topic.dto.TopicImgRelDTO" javaType="ArrayList"
+                select="selectImageListByTopicId">
+      <id property="topicId" column="topicId"/>
+      <id property="imgUrl" column="imgUrl"/>
+      <id property="imgIndex" column="imgIndex"/>
+    </collection>
+  </resultMap>
+  <select id="selectTopicDetail" resultMap="topicDetailMap" parameterType="com.dongtong.topic.query.TopicDetailQuery">
+      SELECT t.id,publisher_id,hyperlink_url,third_article_id,
+      CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(t.create_time,'%Y-%m-%d')
+              END
+          END
+      END AS create_time,
+      t.title,t.content,t.publish_type,t.hyperlink_url,kind,
+      (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id) praiseNumber,(SELECT COUNT(*) FROM topic_comment b WHERE b.business_id = t.id AND is_del = 0) commentNumber,
+      CASE (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id AND like_id=#{userId,jdbcType=BIGINT} AND like_type = #{userType,jdbcType=TINYINT}) WHEN 0 THEN 0 ELSE 1 END likeStatus,
+      CASE WHEN (publisher_id = #{userId,jdbcType=BIGINT} AND publisher_type = #{userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END canBeDelete
+    FROM topic t
+    WHERE t.is_del = 0 AND t.id = #{topicId,jdbcType=BIGINT} AND now() > t.timer
+    ORDER BY kind DESC ,(kind * CASE WHEN kind_time IS NULL THEN 0 ELSE kind_time END) DESC,t.create_time DESC
+  </select>
+  <select id="selectTopicDetailByUserId" resultMap="topicDetailMap" parameterType="com.dongtong.topic.query.TopicDetailQuery">
+    SELECT t.id,publisher_id,hyperlink_url,third_article_id,
+      CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+        CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+          THEN
+            CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+          ELSE
+            CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+            ELSE
+              DATE_FORMAT(t.create_time,'%Y-%m-%d')
+            END
+        END
+      END AS create_time,
+    t.title,t.content,t.publish_type,t.hyperlink_url,kind,
+    (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id) praiseNumber,(SELECT COUNT(*) FROM topic_comment b WHERE b.business_id = t.id AND is_del = 0) commentNumber,
+    CASE (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id AND like_id=#{userId,jdbcType=BIGINT} AND like_type = #{userType,jdbcType=TINYINT}) WHEN 0 THEN 0 ELSE 1 END likeStatus,
+    CASE WHEN (publisher_id = #{userId,jdbcType=BIGINT} AND publisher_type = #{userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END canBeDelete
+    FROM topic t
+    WHERE t.is_del = 0 AND t.id = #{topicId,jdbcType=BIGINT} AND now() > t.timer AND publisher_id = #{userId,jdbcType=BIGINT}
+    ORDER BY kind DESC ,(kind * CASE WHEN kind_time IS NULL THEN 0 ELSE kind_time END) DESC,t.create_time DESC
+  </select>
+  <select id="selectByPrimaryKeyNoDel" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from topic
+    where id = #{id,jdbcType=BIGINT} AND now() > timer
+  </select>
+
+  <select id="selectTopTopicList" resultMap="topicListMap" parameterType="com.dongtong.topic.query.TopicListQuery">
+    SELECT t.id,publisher_id, t.publisher_type,third_article_id,
+      CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(t.create_time,'%Y-%m-%d')
+              END
+          END
+      END AS create_time,
+    t.title,t.content,t.publish_type,t.hyperlink_url,kind,
+    (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id) praiseNumber,(SELECT COUNT(*) FROM topic_comment b WHERE b.business_id = t.id AND is_del = 0) commentNumber,
+    CASE (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id AND like_id=#{userId,jdbcType=BIGINT} AND like_type = #{userType,jdbcType=TINYINT}) WHEN 0 THEN 0 ELSE 1 END likeStatus,
+    CASE WHEN (publisher_id = #{userId,jdbcType=BIGINT} AND publisher_type = #{userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END canBeDelete
+    FROM topic t
+    WHERE is_del = 0 AND now() > t.timer and kind = 1
+    ORDER BY kind DESC ,(kind * CASE WHEN kind_time IS NULL THEN 0 ELSE kind_time END) DESC ,(praiseNumber+commentNumber) DESC
+    LIMIT 4
+  </select>
+
+  <select id="selectPopularTopicList" resultMap="topicListMap" parameterType="com.dongtong.topic.query.TopicListQuery">
+    SELECT t.id,publisher_id, t.publisher_type,third_article_id,
+      CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+            THEN
+            CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(t.create_time,'%Y-%m-%d')
+              END
+          END
+      END AS create_time,
+    t.title,t.content,t.publish_type,t.hyperlink_url,kind,
+    (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id) praiseNumber,(SELECT COUNT(*) FROM topic_comment b WHERE b.business_id = t.id AND is_del = 0) commentNumber,
+    CASE (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id AND like_id=#{userId,jdbcType=BIGINT} AND like_type = #{userType,jdbcType=TINYINT}) WHEN 0 THEN 0 ELSE 1 END likeStatus,
+    CASE WHEN (publisher_id = #{userId,jdbcType=BIGINT} AND publisher_type = #{userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END canBeDelete
+    FROM topic t
+    WHERE is_del = 0 AND now() > t.timer and kind = 0 AND DATE_ADD(t.create_time,INTERVAL 7 DAY) > now()
+    ORDER BY (praiseNumber+commentNumber) DESC
+    LIMIT 4
+  </select>
+  <select id="selectNewTopicList" resultMap="topicListMap" parameterType="com.dongtong.topic.query.TopicListQuery">
+    SELECT t.id,publisher_id, t.publisher_type,third_article_id,
+      CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 MINUTE) > now()
+        THEN
+          '刚刚'
+        ELSE
+          CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 HOUR) > now()
+            THEN
+              CONCAT(TIMESTAMPDIFF(MINUTE,t.create_time,now()),'分钟前')
+            ELSE
+              CASE WHEN DATE_ADD(t.create_time,INTERVAL 1 DAY) > now()
+                THEN
+                  CONCAT(TIMESTAMPDIFF(HOUR,t.create_time,now()),'小时前')
+                ELSE
+                  DATE_FORMAT(t.create_time,'%Y-%m-%d')
+              END
+          END
+      END AS create_time,
+    t.title,t.content,t.publish_type,t.hyperlink_url,kind,
+    (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id) praiseNumber,(SELECT COUNT(*) FROM topic_comment b WHERE b.business_id = t.id AND is_del = 0) commentNumber,
+    CASE (SELECT COUNT(*) FROM topic_like l WHERE l.business_id = t.id AND like_id=#{userId,jdbcType=BIGINT} AND like_type = #{userType,jdbcType=TINYINT}) WHEN 0 THEN 0 ELSE 1 END likeStatus,
+    CASE WHEN (publisher_id = #{userId,jdbcType=BIGINT} AND publisher_type = #{userType,jdbcType=TINYINT}) THEN 1 ELSE 0 END canBeDelete
+    FROM topic t
+    WHERE is_del = 0 AND now() > t.timer and kind = 0
+    ORDER BY t.create_time DESC
+    LIMIT 4
+  </select>
+</mapper>

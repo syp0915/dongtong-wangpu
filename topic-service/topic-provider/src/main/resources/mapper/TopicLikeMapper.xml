@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.topic.dao.TopicLikeMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.topic.domain.TopicLike">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="business_id" jdbcType="BIGINT" property="businessId" />
+    <result column="like_id" jdbcType="BIGINT" property="likeId" />
+    <result column="like_type" jdbcType="TINYINT" property="likeType" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, business_id, like_id, like_type, creater, create_time, modifier, modify_time, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from topic_like
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from topic_like
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.topic.domain.TopicLike" useGeneratedKeys="true">
+    insert into topic_like (id, business_id, like_id, 
+      like_type, creater, create_time, 
+      modifier, modify_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{businessId,jdbcType=BIGINT}, #{likeId,jdbcType=BIGINT}, 
+      #{likeType,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT}, now(), 
+      #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.topic.domain.TopicLike" useGeneratedKeys="true">
+    insert into topic_like
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="likeId != null">
+        like_id,
+      </if>
+      <if test="likeType != null">
+        like_type,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="likeId != null">
+        #{likeId,jdbcType=BIGINT},
+      </if>
+      <if test="likeType != null">
+        #{likeType,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.topic.domain.TopicLike">
+    update topic_like
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="likeId != null">
+        like_id = #{likeId,jdbcType=BIGINT},
+      </if>
+      <if test="likeType != null">
+        like_type = #{likeType,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.topic.domain.TopicLike">
+    update topic_like
+    set business_id = #{businessId,jdbcType=BIGINT},
+      like_id = #{likeId,jdbcType=BIGINT},
+      like_type = #{likeType,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectLikeByTopicId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select
+    count(*)
+    from topic_like
+    where business_id = #{businessId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByTopicIdAndUser" resultType="java.lang.Integer" parameterType="com.dongtong.topic.domain.TopicLike">
+    select
+    count(*)
+    from topic_like
+    where business_id = #{businessId,jdbcType=BIGINT}
+      and like_id = #{likeId,jdbcType=BIGINT}
+      and like_type = #{likeType,jdbcType=TINYINT}
+  </select>
+  <select id="deleteLikeByTopicIdAndUser" parameterType="com.dongtong.topic.domain.TopicLike">
+    delete
+    from topic_like
+    where business_id = #{businessId,jdbcType=BIGINT}
+      and like_id = #{likeId,jdbcType=BIGINT}
+      and like_type = #{likeType,jdbcType=TINYINT}
+  </select>
+  <select id="selectLikeByTopicIdAndUser" resultMap="BaseResultMap" parameterType="com.dongtong.topic.domain.TopicLike">
+    select
+    <include refid="Base_Column_List" />
+    from topic_like
+    where business_id = #{businessId,jdbcType=BIGINT}
+      and like_id = #{likeId,jdbcType=BIGINT}
+      and like_type = #{likeType,jdbcType=TINYINT}
+    limit 1
+  </select>
+</mapper>

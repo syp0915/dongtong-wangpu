@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>clerk-service</artifactId>
+        <groupId>com.dongtong.shop</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.dongtong.shop</groupId>
+    <artifactId>clerk-api</artifactId>
+    <version>1.2-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>clerk-api</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.shfc.framework</groupId>
+            <artifactId>shfc-common</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.shfc.framework</groupId>
+            <artifactId>shfc-mybatis</artifactId>
+            <version>1.0-RELEASE</version>
+        </dependency>
+    </dependencies>
+</project>

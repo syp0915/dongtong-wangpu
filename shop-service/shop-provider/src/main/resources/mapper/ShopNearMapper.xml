@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongtong.shop.dao.ShopNearMapper">
+  <resultMap id="BaseResultMap" type="com.dongtong.shop.domain.ShopNear">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="industry_id" jdbcType="BIGINT" property="industryId" />
+    <result column="near_seat" jdbcType="TINYINT" property="nearSeat" />
+    <result column="fee_rate" jdbcType="INTEGER" property="feeRate" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, shop_id, name, industry_id, near_seat, fee_rate, creater, create_time, modifier, 
+    modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_near
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shop_near
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.dongtong.shop.domain.ShopNear" useGeneratedKeys="true">
+    insert into shop_near (id, shop_id, name, 
+      industry_id, near_seat, fee_rate, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{shopId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{industryId,jdbcType=BIGINT}, #{nearSeat,jdbcType=TINYINT}, #{feeRate,jdbcType=INTEGER}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.dongtong.shop.domain.ShopNear" useGeneratedKeys="true">
+    insert into shop_near
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="industryId != null">
+        industry_id,
+      </if>
+      <if test="nearSeat != null">
+        near_seat,
+      </if>
+      <if test="feeRate != null">
+        fee_rate,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null">
+        #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="nearSeat != null">
+        #{nearSeat,jdbcType=TINYINT},
+      </if>
+      <if test="feeRate != null">
+        #{feeRate,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongtong.shop.domain.ShopNear">
+    update shop_near
+    <set>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null">
+        industry_id = #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="nearSeat != null">
+        near_seat = #{nearSeat,jdbcType=TINYINT},
+      </if>
+      <if test="feeRate != null">
+        fee_rate = #{feeRate,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongtong.shop.domain.ShopNear">
+    update shop_near
+    set shop_id = #{shopId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      industry_id = #{industryId,jdbcType=BIGINT},
+      near_seat = #{nearSeat,jdbcType=TINYINT},
+      fee_rate = #{feeRate,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectNearByIdAndShopId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop_near
+    where id = #{id} and shop_id = #{shopId}
+  </select>
+
+  <select id="selectNearByShopIdAndNearSeat" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop_near
+    where near_seat = #{nearSeat} and shop_id = #{shopId} limit 1
+  </select>
+</mapper>
